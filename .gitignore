@@ -1,0 +1,19 @@
+*.iml
+.idea
+*.log
+*.DS_Store
+*/target/
+/target
+*.ipr
+*.iws
+*.settings
+
+*.class
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.ear

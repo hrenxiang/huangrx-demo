@@ -1,0 +1,10 @@
+# \u5E94\u7528\u670D\u52A1\u7AEF\u53E3
+server:
+  port: 8081
+# knife4j\u76F8\u5173\u914D\u7F6E
+knife4j:
+  basic:
+    enable: true
+    username: huangrx
+    password: huangrx
+

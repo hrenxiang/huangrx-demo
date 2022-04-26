@@ -1,0 +1,19 @@
+# 日志配置
+logging:
+  level:
+    root: info
+  # nacos 配置
+  # http://${spring.cloud.nacos.discovery.server-addr}/nacos/v1/cs/configs?group=DEFAULT_GROUP&tenant=${spring.cloud.nacos.discovery.namespace}&dataId=logback-spring-local.xml
+  config: classpath:logback-spring-test.xml
+
+secure:
+  ignored:
+    urls: #安全路径白名单
+      - /index
+      - /log
+      - /login
+jwt:
+  tokenHeader: Authorization #JWT存储的请求头
+  secret: huangrx-security-secret #JWT加解密使用的密钥
+  tokenHead: 'Bearer '  #JWT负载中拿到开头
+  expiration: 60 #JWT的超期限时间
