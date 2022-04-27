@@ -1,10 +1,10 @@
 # 应用服务 WEB 访问端口
 server:
-  port: 8083
+  port: 8098
 
 # 应用名称
 spring:
   application:
-    name: huangrx-logback
+    name: huangrx-logstash
   profiles:
     active: test
