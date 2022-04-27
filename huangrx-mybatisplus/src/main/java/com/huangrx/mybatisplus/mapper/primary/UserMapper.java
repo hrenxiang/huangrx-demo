@@ -1,4 +1,4 @@
-package com.huangrx.mybatisplus.mapper;
+package com.huangrx.mybatisplus.mapper.primary;
 
 import com.huangrx.mybatisplus.model.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

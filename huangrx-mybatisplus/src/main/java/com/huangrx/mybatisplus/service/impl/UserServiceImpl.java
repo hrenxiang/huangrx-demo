@@ -1,7 +1,7 @@
 package com.huangrx.mybatisplus.service.impl;
 
 import com.huangrx.mybatisplus.model.entity.User;
-import com.huangrx.mybatisplus.mapper.UserMapper;
+import com.huangrx.mybatisplus.mapper.primary.UserMapper;
 import com.huangrx.mybatisplus.service.UserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;

@@ -2,7 +2,9 @@ package com.huangrx.mybatisplus;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.huangrx.mybatisplus.generator.CodeGenerator;
+import com.huangrx.mybatisplus.model.entity.Dept;
 import com.huangrx.mybatisplus.model.entity.User;
+import com.huangrx.mybatisplus.service.DeptService;
 import com.huangrx.mybatisplus.service.impl.UserServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
@@ -17,6 +19,9 @@ class HuangrxMybatisplusApplicationTests {
 
     @Autowired
     private CodeGenerator codeGenerator;
+
+    @Autowired
+    private DeptService deptService;
 
     @Autowired
     private UserServiceImpl userService;
@@ -43,5 +48,11 @@ class HuangrxMybatisplusApplicationTests {
                         .eq(User::getId, 1)
         );
         log.info("结果: {}", one);
+
+        Dept one1 = deptService.getOne(
+                Wrappers.<Dept>lambdaQuery()
+                        .eq(Dept::getId, 1)
+        );
+        log.info("结果: {}", one1);
     }
 }

@@ -43,7 +43,7 @@ public class CodeGenerator {
         //数据库类型
         dataSourceConfig.setDbType(DbType.MYSQL)
                 .setDriverName("com.mysql.jdbc.Driver")
-                .setUrl("jdbc:mysql://localhost:3306/mybatisplus_demo")
+                .setUrl("jdbc:mysql://localhost:3306/mybatisplus_demo2")
                 .setUsername("root")
                 .setPassword("12345678");
         //3、策略配置
