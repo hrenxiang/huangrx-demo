@@ -1,7 +1,7 @@
 # 前言
 　　自己很早就想搞一个总的仓库就是将自己平时遇到的和学习到的东西整合在一起，方便后面用的时候快速的查找与使用，以下是我的相关博客，有兴趣的, 可以去浏览浏览，觉得对自己有点启发或者解决了一些问题，可以点个赞~
   
-[![](https://hrenxiang.github.io/blog/)
+[hrenxiang's blog](https://hrenxiang.github.io/blog/)
 
 ## huangrx-demo
 基于springboot的快速学习示例
