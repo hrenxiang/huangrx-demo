@@ -274,6 +274,7 @@ public class ExcelUtils {
         params.setHeadRows(headerRows);
         params.setSaveUrl("/excel/");
         params.setNeedSave(true);
+        //检验excel内容 可以得到 检验失败的 内容，返回 模版继承的定义的失败模版
         params.setNeedVerify(needVerify);
         try {
             return ExcelImportUtil.importExcel(inputStream, pojoClass, params);

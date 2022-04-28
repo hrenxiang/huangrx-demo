@@ -1,0 +1,16 @@
+server:
+  port: 28009
+
+spring:
+  application:
+    name: huangrx-http
+  profiles:
+    active: test
+  cloud:
+    nacos:
+      # 设置配置中心
+      config:
+        file-extension: yml
+        server-addr: 192.168.2.105:8848
+        namespace: 04994367-3fad-4039-9ca0-b33047eec6b9
+        group: DEFAULT_GROUP

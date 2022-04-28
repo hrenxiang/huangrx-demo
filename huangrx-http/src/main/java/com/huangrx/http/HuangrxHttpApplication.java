@@ -1,24 +1,17 @@
-package com.huangrx.nacos;
+package com.huangrx.http;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
-/**
- * 开启nacos注解
- *
- * @author    hrenxiang
- * @since    2022/4/27 8:28 PM
- */
-@EnableFeignClients
 @SpringBootApplication
+@EnableFeignClients
 @EnableDiscoveryClient
-public class HuangrxNacosApplication {
+public class HuangrxHttpApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(HuangrxNacosApplication.class, args);
+        SpringApplication.run(HuangrxHttpApplication.class, args);
     }
 
 }

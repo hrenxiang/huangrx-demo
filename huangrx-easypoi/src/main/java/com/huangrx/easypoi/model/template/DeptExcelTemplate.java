@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @ExcelTarget("deptExcel")
-public class DeptExcelTemplate implements Serializable {
+public class DeptExcelTemplate extends InformationExcelVerifyInfo implements Serializable {
  
     /**
      * 部门代码
