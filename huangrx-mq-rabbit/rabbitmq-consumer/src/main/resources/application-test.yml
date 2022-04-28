@@ -1,0 +1,15 @@
+# 日志配置
+logging:
+  level:
+    root: info
+  # nacos 配置
+  # http://${spring.cloud.nacos.discovery.server-addr}/nacos/v1/cs/configs?group=DEFAULT_GROUP&tenant=${spring.cloud.nacos.discovery.namespace}&dataId=logback-spring-local.xml
+  config: classpath:logback-spring-test.xml
+
+spring:
+  rabbitmq:
+    host: 192.168.2.105 # ip地址
+    port: 5672
+    username: admin # 连接账号
+    password: admin # 连接密码
+    virtual-host: /admin

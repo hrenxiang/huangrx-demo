@@ -1,0 +1,10 @@
+# 应用服务 WEB 访问端口
+server:
+  port: 28002
+
+# 应用名称
+spring:
+  application:
+    name: rabbitmq-producer
+  profiles:
+    active: test
