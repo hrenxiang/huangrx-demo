@@ -13,7 +13,7 @@ import cn.afterturn.easypoi.handler.inter.IExcelModel;
  * @author    hrenxiang
  * @since    2022/4/28 6:28 PM
  */
-public class InformationExcelVerifyInfo implements IExcelModel, IExcelDataModel {
+public class ExcelVerifyInfo implements IExcelModel, IExcelDataModel {
 
     /**
      * 错误提示
