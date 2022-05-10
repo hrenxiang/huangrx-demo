@@ -1,0 +1,17 @@
+# 日志配置
+logging:
+  level:
+    root: info
+  # nacos 配置
+  # http://${spring.cloud.nacos.discovery.server-addr}/nacos/v1/cs/configs?group=DEFAULT_GROUP&tenant=${spring.cloud.nacos.discovery.namespace}&dataId=logback-spring-local.xml
+  config: classpath:logback-spring-test.xml
+
+#阿里云短信
+aliyun:
+  sms:
+    appSecret: vzIB7e79xwMy0LDS9mvdHisjMPaBGVl4
+    appCode: 8e45699f00ff4bdbb807664045acd813
+    host: http://dingxin.market.alicloudapi.com
+    path: /dx/sendSms
+    method: POST
+    templateId: TP1711063
