@@ -1,0 +1,27 @@
+# 日志配置
+logging:
+  level:
+    root: info
+  # nacos 配置
+  # http://${spring.cloud.nacos.discovery.server-addr}/nacos/v1/cs/configs?group=DEFAULT_GROUP&tenant=${spring.cloud.nacos.discovery.namespace}&dataId=logback-spring-local.xml
+  config: classpath:logback-spring-test.xml
+
+spring:
+  mail:
+    # 配置 SMTP 服务器地址
+    host: smtp.qq.com
+    # SMTP 服务器的端口
+    port: 587
+    # 配置邮箱用户名
+    username: hrx1014@qq.com
+    # 配置密码，注意，不是真正的密码，而是申请到的授权码
+    password: veslcuqboufyecij
+    # 默认的邮件编码
+    default-encoding: utf-8
+    properties:
+      mail:
+        # 配饰 SSL 加密工厂
+        smtp:
+          socketFactoryClass: javax.net.ssl.SSLSocketFactory
+        # 表示开启 DEBUG 模式，这样，邮件发送过程的日志会在控制台打印出来，方便排查错误
+        debug: true
