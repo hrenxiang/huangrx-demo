@@ -53,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .anyRequest()
                 .authenticated()
-                // 关闭跨站请求防护及不使用session
+                // 因基于token所以不使用session  又因不使用session关闭跨站请求防护
                 .and()
                 .csrf()
                 .disable()
@@ -66,6 +66,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticationEntryPoint(restAuthenticationEntryPoint())
                 // 自定义权限拦截器JWT过滤器
                 .and()
+                // 添加JWT filter
                 .addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class);
         //有动态权限配置时添加动态权限校验过滤器
         if(dynamicSecurityService!=null){
@@ -73,12 +74,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         }
     }
 
+    /**
+     * 身份认证接口
+     *
+     * @param auth auth
+     * @throws Exception 异常
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService())
                 .passwordEncoder(passwordEncoder());
     }
 
+    /**
+     * 强散列哈希加密实现
+     *
+     * @return PasswordEncoder
+     */
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();

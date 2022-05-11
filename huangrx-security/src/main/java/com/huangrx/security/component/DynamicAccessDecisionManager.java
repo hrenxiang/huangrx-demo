@@ -13,7 +13,8 @@ import java.util.Iterator;
 
 /**
  * 动态权限决策管理器，用于判断用户是否有访问权限
-
+ * @author    hrenxiang
+ * @since     2022/5/11 10:29 AM
  */
 public class DynamicAccessDecisionManager implements AccessDecisionManager {
 
