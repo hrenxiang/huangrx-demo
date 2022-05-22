@@ -8,7 +8,7 @@ package com.huangrx.threadlocal.config;
  */
 public class Container {
 
-    private static ThreadLocal<String> THREAD_LOCAL = new ThreadLocal<>();
+    private static final ThreadLocal<String> THREAD_LOCAL = new ThreadLocal<>();
 
     public static ThreadLocal<String> threadLocal() {
         return THREAD_LOCAL;

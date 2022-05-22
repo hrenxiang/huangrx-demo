@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration >
+    <!-- https://github.com/spring-projects/spring-boot/blob/v1.4.2.RELEASE/spring-boot/src/main/resources/org/springframework/boot/logging/logback/defaults.xml -->
+    <include resource="org/springframework/boot/logging/logback/defaults.xml" />
+
+    <!-- 设置变量。定义变量后，可以使“${}”来使用变量。 -->
+    <property name="APP_NAME" value="huangrx-demo" />
+    <property name="LOG_PATH" value="${user.home}/Downloads/${APP_NAME}/logs" />
+    <property name="LOG_FILE" value="${LOG_PATH}/huangrx-demo.log" />
+
+    <!-- 设置变量。定义日志格式变量，可以使“${}”来使用变量。-->
+    <property name="FILE_LOG_PATTERN"
+              value="%red(%date{yyyy-MM-dd HH:mm:ss}) %highlight(%-5level) %red([%thread]) %boldMagenta(%logger{50}) %cyan(%msg%n)"/>
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%blue(%date{yyyy-MM-dd HH:mm:ss}) %highlight(%-5level) %blue([%thread]) %boldMagenta(%logger{50}) %n------ %cyan(%msg%n)"/>
+    <property name="MQ_LOG_PATTERN"
+              value="%blue(%date{yyyy-MM-dd HH:mm:ss}) %highlight(%-5level) %pink([%thread]) %boldMagenta(%logger{50}) %n------ %cyan(%msg%n)"/>
+
+    <!-- 按照每天生成日志文件 -->
+    <appender name="APPLICATION"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 当前活动日志文件名：用日期命名 -->
+        <file>${LOG_FILE}</file>
+        <encoder>
+            <!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符-->
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+        </encoder>
+        <!-- 文件滚动策略根据%d{patter}中的“patter”而定，此处为每天产生一个文件 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <!-- 归档文件名“.zip或.gz结尾”,表示归档文件自动压缩 -->
+            <fileNamePattern>${LOG_FILE}.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <!--日志文件保留天数-->
+            <maxHistory>7</maxHistory>
+            <!--日志文件最大的大小-->
+            <maxFileSize>50MB</maxFileSize>
+            <totalSizeCap>20GB</totalSizeCap>
+        </rollingPolicy>
+    </appender>
+
+    <!-- 输出到控制台 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoder class为空时, 默认也为 ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="mqAppender1" class="org.apache.rocketmq.logappender.logback.RocketmqLogbackAppender">
+        <tag>TagA</tag>
+        <topic>TopicTest</topic>
+        <producerGroup>huangrx-producer</producerGroup>
+        <nameServerAddress>192.168.2.105:9876</nameServerAddress>
+        <layout>
+            <pattern>%date %p %t - %m%n</pattern>
+        </layout>
+    </appender>
+    <appender name="mqAsyncAppender1" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>1024</queueSize>
+        <discardingThreshold>80</discardingThreshold>
+        <maxFlushTime>2000</maxFlushTime>
+        <neverBlock>true</neverBlock>
+        <appender-ref ref="mqAppender1"/>
+    </appender>
+
+    <!-- 至多只能配置一个root -->
+    <root level="info">
+        <appender-ref ref="CONSOLE" />
+        <appender-ref ref="APPLICATION" />
+        <appender-ref ref="mqAppender1" />
+    </root>
+
+    <!-- logback为java中的包 -->
+    <!--<logger name="com.dudu.controller"/>-->
+    <!--logback.LogbackDemo：类的全路径 -->
+    <!--<logger name="com.dudu.controller.LearnController" level="WARN" additivity="true">-->
+    <!--<appender-ref ref="console"/>-->
+    <!--</logger>-->
+
+    <!--&lt;!&ndash; 测试环境+开发环境. 多个使用逗号隔开. &ndash;&gt;-->
+    <!--<springProfile name="test,dev">-->
+    <!--<logger name="com.dudu.controller" level="info" />-->
+    <!--</springProfile>-->
+    <!--&lt;!&ndash; 生产环境. &ndash;&gt;-->
+    <!--<springProfile name="prod">-->
+    <!--<logger name="com.dudu.controller" level="ERROR" />-->
+    <!--</springProfile>-->
+</configuration>
