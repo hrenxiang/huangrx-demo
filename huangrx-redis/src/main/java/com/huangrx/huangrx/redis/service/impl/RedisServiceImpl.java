@@ -21,7 +21,7 @@ public class RedisServiceImpl implements RedisService {
     @Autowired
     private void setRedisTemplate(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
-    };
+    }
 
     @Override
     public void set(String key, Object value, long time) {

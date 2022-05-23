@@ -20,14 +20,14 @@ public final class ObjectValCheck {
     }
 
     public static boolean isFalse(Boolean obj) {
-        return obj != null ? !obj : true;
+        return obj == null || !obj;
     }
 
     public static boolean isZero(Integer obj) {
-        return obj != null ? Objects.equals(NumberUtils.INTEGER_ZERO, obj) : false;
+        return obj != null && Objects.equals(NumberUtils.INTEGER_ZERO, obj);
     }
 
     public static boolean isOne(Integer obj) {
-        return obj != null ? Objects.equals(NumberUtils.INTEGER_ONE, obj) : false;
+        return obj != null && Objects.equals(NumberUtils.INTEGER_ONE, obj);
     }
 }
