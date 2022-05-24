@@ -8,11 +8,14 @@
     <property name="LOG_PATH" value="${user.home}/Downloads/${APP_NAME}/logs" />
     <property name="LOG_FILE" value="${LOG_PATH}/huangrx-demo.log" />
 
+    <!-- 使用高亮  -->
+    <conversionRule conversionWord="highlightex" converterClass="com.huangrx.log.HighlightingCompositeConverterEx" />
+
     <!-- 设置变量。定义日志格式变量，可以使“${}”来使用变量。-->
     <property name="FILE_LOG_PATTERN"
               value="%red(%date{yyyy-MM-dd HH:mm:ss}) %highlight(%-5level) %red([%thread]) %boldMagenta(%logger{50}) %cyan(%msg%n)"/>
     <property name="CONSOLE_LOG_PATTERN"
-              value="%blue(%date{yyyy-MM-dd HH:mm:ss}) %highlight(%-5level) %blue([%thread]) %boldMagenta(%logger{50}) %n------ %cyan(%msg%n)"/>
+              value="%cyan(%date{yyyy-MM-dd HH:mm:ss})  [%thread]  %yellow(%-5level)  %magenta([%-50.50class])   >>> %cyan(%msg) %n"/>
 
     <!-- 按照每天生成日志文件 -->
     <appender name="APPLICATION"
@@ -43,6 +46,13 @@
             <charset>utf8</charset>
         </encoder>
     </appender>
+
+<!--    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">-->
+<!--        <withJansi>true</withJansi>-->
+<!--        <encoder>-->
+<!--            <pattern>[%thread] %highlightex(%-5level) %logger{15} - %highlightex(%msg) %n</pattern>-->
+<!--        </encoder>-->
+<!--    </appender>-->
 
     <!-- 至多只能配置一个root -->
     <root level="info">
