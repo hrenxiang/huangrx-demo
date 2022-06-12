@@ -1,0 +1,87 @@
+# 服务器端口号
+server:
+  port: 28088
+
+# spring相关配置
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: provider
+  datasource:
+    dynamic:
+      primary: db1 # 设置默认的数据源或者数据源组,默认值即为master
+      datasource:
+        db1:
+          driver-class-name: com.mysql.cj.jdbc.Driver
+          url: jdbc:mysql://localhost:3306/common?useUnicode=true&characterEncoding=utf-8
+          username: root
+          password: huangrx091599
+  redis:
+    # redis数据库索引 （默认为0）
+    database: 0
+    # redis所在服务器地址
+    host: localhost
+    # redis所在服务器端口
+    port: 6379
+    # redis连接超时时间（毫秒）
+    timeout: 6000
+    jedis:
+      pool:
+        # 最大空闲连接数
+        max-idle: 500
+        # 最小空闲连接数
+        min-idle: 50
+        # 等待可用连接的最大时间，负数为不限制
+        max-wait: -1s
+        # 最大活跃连接数，负数为不限制
+        max-active: -1
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*.xml
+
+validation:
+  code:
+    expiration: 600
+
+# JWT 设置
+jwt:
+  tokenHeader: Authorization #JWT存储的请求头
+  secret: huangrx-security-secret #JWT加解密使用的密钥
+  tokenHead: 'Bearer '  #JWT负载中拿到开头
+  expiration: 60 #JWT的超期限时间
+
+authorization:
+  tokenHeader: Authorization
+  tokenHead: 'Basic '
+
+# security 配置
+security:
+  oauth2:
+    client:
+      # 在代码中设置后，这里应该是失效了
+      client-id: test
+      client-secret: test1234
+      registered-redirect-uri: http://baidu.com
+      authorized-grant-types:
+        - authorization_code
+        - password
+        - refresh_token
+      scope: all
+      access-token-validity-seconds: 15000
+      refresh-token-validity-seconds: 150000
+
+#阿里云短信
+aliyun:
+  sms:
+    appSecret: vzIB7e79xwMy0LDS9mvdHisjMPaBGVl4
+    appCode: 8e45699f00ff4bdbb807664045acd813
+    host: http://dingxin.market.alicloudapi.com
+    path: /dx/sendSms
+    method: POST
+    templateId: TP1711063
+
+logging:
+  level:
+    root: info
+#    org.springframework.security: debug
