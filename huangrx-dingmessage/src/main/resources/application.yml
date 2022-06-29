@@ -9,10 +9,16 @@ server:
 ding-talk:
   robot:
     prefix: https://oapi.dingtalk.com/robot/send
-    access-token: 5998161af4154de90424db1a577660c0854a54867190c6bbcd754991842591a9
+    # 测试
+    # access-token: 5998161af4154de90424db1a577660c0854a54867190c6bbcd754991842591a9
+    # 小艾
+    access-token: c85dca090319954d90ca01920b43776fa1549e6b5a814ad3917c6d910650595c
     secret:
       secret-enabled: true
-      secret-token: SECcd30aa42aa46e6d54c061231a5f4969eb28aed79243697d674c7ae3913eb7419
+      # 测试
+      # secret-token: SECcd30aa42aa46e6d54c061231a5f4969eb28aed79243697d674c7ae3913eb7419
+      # 小艾
+      secret-token: SEC4f8009e971edcec0ed04327b39ac18a3b5bef14aa1fb9e9199ca770b58cee243
 
 #huang:
 #  ren: 123
