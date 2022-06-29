@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.huangrx.provider.mapper.OauthAccountMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.huangrx.provider.model.entity.OauthAccount">
+        <id column="id" property="id" />
+        <result column="client_id" property="clientId" />
+        <result column="username" property="username" />
+        <result column="password" property="password" />
+        <result column="mobile" property="mobile" />
+        <result column="enabled" property="enabled" />
+        <result column="account_non_expired" property="accountNonExpired" />
+        <result column="account_non_locked" property="accountNonLocked" />
+        <result column="credentials_non_expired" property="credentialsNonExpired" />
+        <result column="account_non_deleted" property="accountNonDeleted" />
+        <result column="created_time" property="createdTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, client_id, username, password, mobile, enabled, account_non_expired, account_non_locked, credentials_non_expired, account_non_deleted, created_time, update_time
+    </sql>
+
+</mapper>

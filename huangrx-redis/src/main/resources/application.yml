@@ -14,7 +14,7 @@ spring:
     # redis所在服务器端口
     port: 6379
     # redis连接超时时间（毫秒）
-    timeout: 0
+    timeout: 6000
     jedis:
       pool:
         # 最大空闲连接数
