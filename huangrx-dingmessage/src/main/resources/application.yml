@@ -1,0 +1,21 @@
+# \u5E94\u7528\u540D\u79F0
+spring:
+  application:
+    name: huangrx-dingmessage
+# \u5E94\u7528\u670D\u52A1 WEB \u8BBF\u95EE\u7AEF\u53E3
+server:
+  port: 8080
+
+ding-talk:
+  robot:
+    prefix: https://oapi.dingtalk.com/robot/send
+    access-token: 5998161af4154de90424db1a577660c0854a54867190c6bbcd754991842591a9
+    secret:
+      secret-enabled: true
+      secret-token: SECcd30aa42aa46e6d54c061231a5f4969eb28aed79243697d674c7ae3913eb7419
+
+#huang:
+#  ren: 123
+
+
+
