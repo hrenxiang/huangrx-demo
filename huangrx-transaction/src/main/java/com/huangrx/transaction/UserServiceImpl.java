@@ -2,6 +2,7 @@ package com.huangrx.transaction;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 @Service
@@ -20,8 +21,10 @@ public class UserServiceImpl implements UserService {
      * @param empName
      */
     @Override
+    @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
     public void updateEmpNameById(Integer empId, String empName) {
         userDao.updateEmpNameById(empId, empName);
+        System.out.println(123);
     }
 
     /**
