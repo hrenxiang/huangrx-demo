@@ -20,16 +20,36 @@ public class APiController {
     @Autowired
     UserService userService;
 
+    /**
+     * 如果外层方法开启事务，且内层方法也开启事务
+     *
+     * 隔离级别为，外层：REQUIRES_NEW    内层：REQUIRES_NEW     内层方法完成后，数据库数据并未修改
+     * 隔离级别为，外层：REQUIRES_NEW    内层：REQUIRED         内层方法完成后，数据库数据并未修改
+     * 隔离级别为，外层：REQUIRED        内层：REQUIRED         内层方法完成后，数据库数据并未修改
+     * 隔离级别为，外层：REQUIRED        内层：REQUIRES_NEW     内层方法完成后，数据库数据并未修改
+     * 隔离级别为，外层：NEVER           内层：REQUIRED         内层方法完成后，数据库数据修改
+     *
+     * 也就是说，如果想让内层方法执行完就提交，那么外层方法不建议使用事务
+     */
     @GetMapping("get")
-    @Transactional(propagation = Propagation.NEVER, rollbackFor = Exception.class)
-    public void test() {
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public String test() {
         this.update();
+        //this.update3();
         log.info("lllll");
+        return "hhhh";
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
+    public void update() {
+        userService.updateEmpNameById(7369, "sdfasfadsf");
+        log.info("32234");
+        System.out.println(123);
     }
 
     @Transactional(propagation = Propagation.REQUIRES_NEW, rollbackFor = Exception.class)
-    public void update() {
-        userService.updateEmpNameById(7369, "ggggg");
+    public void update3() {
+        userService.updateEmpSalaryById(7369, 200d);
         log.info("32234");
     }
 

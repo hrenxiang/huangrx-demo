@@ -31,7 +31,7 @@ public class UserServiceImpl implements UserService {
      * @param salary
      */
     @Override
-    @Transactional
+    //@Transactional
     public void updateEmpSalaryById(Integer empId, Double salary) {
         userDao.updateEmpSalaryById(empId, salary);
     }
