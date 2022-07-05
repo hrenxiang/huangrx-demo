@@ -12,13 +12,15 @@ ding-talk:
     # 测试
     # access-token: 5998161af4154de90424db1a577660c0854a54867190c6bbcd754991842591a9
     # 小艾
-    access-token: c85dca090319954d90ca01920b43776fa1549e6b5a814ad3917c6d910650595c
+    access-token: 381c6636b9e33af755d310f997ec667e00728c6a54791cc15828d9345ad1da24
+    # access-token: 53f19ed44ec8c5fcc4ce87b68bfa6e84cf4f2500a3a2a60dfb759546ab5f063d
     secret:
       secret-enabled: true
       # 测试
       # secret-token: SECcd30aa42aa46e6d54c061231a5f4969eb28aed79243697d674c7ae3913eb7419
       # 小艾
-      secret-token: SEC4f8009e971edcec0ed04327b39ac18a3b5bef14aa1fb9e9199ca770b58cee243
+      secret-token: SEC8b5aac7d5b01b18edcb5a865db4196cd9f3c818e0bb7911b8f2e0dac860e9258
+      # secret-token: SEC3d1e37f2eb309f6692e26d0a5d5179326669580f197a2c1c7f0c8b61bc071e6f
 
 #huang:
 #  ren: 123
