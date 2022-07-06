@@ -1,12 +1,14 @@
 package com.huangrx.transaction;
 
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.jdbc.core.JdbcTemplate;
+
+import javax.annotation.Resource;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author    hrenxiang
@@ -18,6 +20,9 @@ public class test {
     @Autowired
     @Qualifier(value = "userServiceImpl")
     private UserService userService;
+
+    @Resource
+    JdbcTemplate jdbcTemplate;
 
     /**
      * 测试sql操作
@@ -72,5 +77,15 @@ public class test {
         System.out.println(s);
     }
 
+    @Test
+    public void test3() {
+        String  sql = "select empno,ename from emp where sal = ?";
+        List<Map<String, Object>> maps = jdbcTemplate.queryForList(sql, 99999);
+        for (Map<String, Object> map : maps) {
+            System.out.println(map.get("empno"));
+            System.out.println(map.get("ename"));
+            System.out.println("=========");
+        }
+    }
 
 }

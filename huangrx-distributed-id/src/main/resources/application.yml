@@ -1,0 +1,30 @@
+# \u5E94\u7528\u540D\u79F0
+spring:
+  application:
+    name: huangrx-distributed-id
+  redis:
+    # redis\u6570\u636E\u5E93\u7D22\u5F15 \uFF08\u9ED8\u8BA4\u4E3A0\uFF09
+    database: 0
+    # redis\u6240\u5728\u670D\u52A1\u5668\u5730\u5740
+    host: localhost
+    # redis\u6240\u5728\u670D\u52A1\u5668\u7AEF\u53E3
+    port: 6379
+    # redis\u8FDE\u63A5\u8D85\u65F6\u65F6\u95F4\uFF08\u6BEB\u79D2\uFF09
+    timeout: 6000
+    jedis:
+      pool:
+        # \u6700\u5927\u7A7A\u95F2\u8FDE\u63A5\u6570
+        max-idle: 500
+        # \u6700\u5C0F\u7A7A\u95F2\u8FDE\u63A5\u6570
+        min-idle: 50
+        # \u7B49\u5F85\u53EF\u7528\u8FDE\u63A5\u7684\u6700\u5927\u65F6\u95F4\uFF0C\u8D1F\u6570\u4E3A\u4E0D\u9650\u5236
+        max-wait: -1s
+        # \u6700\u5927\u6D3B\u8DC3\u8FDE\u63A5\u6570\uFF0C\u8D1F\u6570\u4E3A\u4E0D\u9650\u5236
+        max-active: -1
+
+# \u5E94\u7528\u670D\u52A1 WEB \u8BBF\u95EE\u7AEF\u53E3
+server:
+  port: 8080
+
+
+

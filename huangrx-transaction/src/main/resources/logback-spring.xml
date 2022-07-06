@@ -6,7 +6,7 @@
         <encoder>
             <!-- 日志输出的格式 -->
             <!-- 按照顺序分别是：时间、日志级别、线程名称、打印日志的类、日志主体内容、换行 -->
-            <pattern>%yellow(%date{yyyy-MM-dd HH:mm:ss}) %highlight(%-5level) %yellow([%thread]) %boldMagenta(%logger{50}) %n------ %cyan(%msg%n)</pattern>
+            <pattern>%yellow(%date{yyyy-MM-dd HH:mm:ss}) %highlight(%-5level) %yellow([%thread]) %boldMagenta(%logger{50}) %n%red(------) %cyan(%msg%n)</pattern>
         </encoder>
     </appender>
 
