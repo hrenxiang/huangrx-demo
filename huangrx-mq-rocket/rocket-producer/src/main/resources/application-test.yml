@@ -5,3 +5,13 @@ logging:
   # nacos 配置
   # http://${spring.cloud.nacos.discovery.server-addr}/nacos/v1/cs/configs?group=DEFAULT_GROUP&tenant=${spring.cloud.nacos.discovery.namespace}&dataId=logback-spring-local.xml
   config: classpath:logback-spring-test.xml
+
+#rocketmq配置
+rocket:
+  group: huangrx-rocketmq-group
+  # 服务地址
+  namesrvAddr: 10.58.128.176:9876
+  # 发送消息超时时间,默认3000
+  sendMsgTimeout: 3000
+  # 发送消息失败重试次数，默认2
+  retryTimesWhenSendFailed: 2

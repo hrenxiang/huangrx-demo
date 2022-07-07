@@ -15,20 +15,20 @@ public class OnewayProducer {
         // 实例化消息生产者Producer
         DefaultMQProducer producer = new DefaultMQProducer("huangrx-oneway-producer");
         // 设置NameServer的地址
-        producer.setNamesrvAddr("192.168.2.105:9876");
+        producer.setNamesrvAddr("10.58.128.176:9876");
         // 启动Producer实例
         producer.start();
 
         int messageCount = 100;
         for (int i = 0; i < messageCount; i++) {
             // 创建消息，并指定Topic，Tag和消息体
-            Message msg = new Message("TopicTest",
+            Message msg = new Message("Topic2",
                     "TagA", ("Hello RocketMQ " + i).getBytes(RemotingHelper.DEFAULT_CHARSET));
             // 发送单向消息，没有任何返回结果
             producer.sendOneway(msg);
 
         }
         // 如果不再发送消息，关闭Producer实例。
-        producer.shutdown();
+        //producer.shutdown();
     }
 }

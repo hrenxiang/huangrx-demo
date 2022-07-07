@@ -16,16 +16,11 @@
     </properties>
 
     <dependencies>
+
         <dependency>
             <groupId>org.apache.rocketmq</groupId>
             <artifactId>rocketmq-client</artifactId>
-            <version>4.5.2</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-            </exclusions>
+            <version>4.8.0</version>
         </dependency>
         <dependency>
             <groupId>org.apache.rocketmq</groupId>

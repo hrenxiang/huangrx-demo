@@ -22,7 +22,7 @@ public class SequenceProducer {
    public static void main(String[] args) throws Exception {
        DefaultMQProducer producer = new DefaultMQProducer("huangrx-sequence-producer");
 
-       producer.setNamesrvAddr("192.168.2.105:9876");
+       producer.setNamesrvAddr("10.58.128.176:9876");
 
        producer.start();
 
@@ -42,11 +42,12 @@ public class SequenceProducer {
            Message msg = new Message("TopicTest", tags[i % tags.length], "KEY" + i, body.getBytes());
 
            SendResult sendResult = producer.send(msg, new MessageQueueSelector() {
-               //根据订单id选择发送queue
+               //根据订单id选择发送queue，queue的数量可以在面板进行设置
                @Override
                public MessageQueue select(List<MessageQueue> mqs, Message msg, Object arg) {
                    Long id = (Long) arg;
                    long index = id % mqs.size();
+                   System.out.println(mqs.get((int) index));
                    return mqs.get((int) index);
                }
            }, orderList.get(i).getOrderId());

@@ -2,6 +2,7 @@ package com.huangrx.rocket.producer.mq;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,12 +13,12 @@ import org.springframework.stereotype.Component;
  */
 @Data
 @Component
-@ConfigurationProperties(prefix = "rocketmq")
+@ConfigurationProperties(prefix = "rocket")
 public class RocketMqConfig {
 
     private String group;
-    private String nameServerAddr;
+    private String nameSrvAddr;
     private Integer sendMsgTimeout;
-    private Integer failureRetryNumber;
+    private Integer retryTimesWhenSendFailed;
 
 }

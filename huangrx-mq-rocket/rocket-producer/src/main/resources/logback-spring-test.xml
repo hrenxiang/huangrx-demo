@@ -50,7 +50,7 @@
         <tag>TagA</tag>
         <topic>TopicTest</topic>
         <producerGroup>huangrx-producer</producerGroup>
-        <nameServerAddress>192.168.2.105:9876</nameServerAddress>
+        <nameServerAddress>10.58.128.176:9876</nameServerAddress>
         <layout>
             <pattern>%date %p %t - %m%n</pattern>
         </layout>
