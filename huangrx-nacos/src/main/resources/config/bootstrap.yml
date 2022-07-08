@@ -10,7 +10,7 @@ spring:
     nacos:
       # 设置配置中心
       config:
-        file-extension: yml
-        server-addr: 192.168.2.103:8848
-        namespace: 04994367-3fad-4039-9ca0-b33047eec6b9
+        file-extension: yaml
+        server-addr: 10.58.128.176:8848
+        namespace: 3ebdc452-f811-415a-ac14-8dcb9c0fdf2b
         group: DEFAULT_GROUP
