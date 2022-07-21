@@ -49,7 +49,8 @@ public class OpenApiConfig {
                 .build()
                 //每一个请求都可以添加header
                 .globalRequestParameters(getGlobalRequestParameters())
-                .globalResponses(HttpMethod.GET, getGlobalResponse());
+                .globalResponses(HttpMethod.GET, getGlobalResponse())
+                .globalResponses(HttpMethod.POST, getGlobalResponse());
 
     }
 
