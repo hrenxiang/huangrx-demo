@@ -22,10 +22,19 @@ public class SimpleBookRepository implements BookRepository {
 	 * @return
 	 */
 	@Override
-	@Cacheable(cacheNames = "books", key = "#isbn.hashCode()", condition = "#isbn.equals('isbn-4567')", unless = "!#result.auto.equals('vector')")
+	@Cacheable(cacheNames = "books")
 	public Book getByIsbn(String isbn) {
 		simulateSlowService();
+		System.out.println("======== 没有走缓存 ========");
 		return new Book(isbn, "Some book", "vector");
+	}
+
+	@Override
+	@Cacheable(value = "bookCache", key = "#root.methodName")
+	public Book getByIsbnNoArgs() {
+		simulateSlowService();
+		System.out.println("======== 没有走缓存 ========");
+		return new Book("123456", "Some book", "vector");
 	}
 
 	/**
@@ -45,7 +54,7 @@ public class SimpleBookRepository implements BookRepository {
 	 * beforeInvocation = false 等待方法处理完之后再清空缓存，缺点是如果逻辑出异常了，会导致缓存不会被清空
 	 */
 	@Override
-	@CacheEvict(cacheNames = "books", allEntries = true, beforeInvocation = true)
+	@CacheEvict(cacheNames = "books", allEntries = true, beforeInvocation = false)
 	public void clear() {
 		logger.warn("清空books缓存数据");
 		throw new RuntimeException("测试 beforeInvocation = fasle");

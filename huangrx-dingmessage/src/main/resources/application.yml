@@ -10,16 +10,16 @@ ding-talk:
   robot:
     prefix: https://oapi.dingtalk.com/robot/send
     # 测试
-    # access-token: 5998161af4154de90424db1a577660c0854a54867190c6bbcd754991842591a9
+    access-token: 96d63fd283ecd9f90600ae18bf2b57fafe3fdf1e7293e430ac98143193b367b0
     # 小艾
-    access-token: 381c6636b9e33af755d310f997ec667e00728c6a54791cc15828d9345ad1da24
+    # access-token: 381c6636b9e33af755d310f997ec667e00728c6a54791cc15828d9345ad1da24
     # access-token: 53f19ed44ec8c5fcc4ce87b68bfa6e84cf4f2500a3a2a60dfb759546ab5f063d
     secret:
       secret-enabled: true
       # 测试
-      # secret-token: SECcd30aa42aa46e6d54c061231a5f4969eb28aed79243697d674c7ae3913eb7419
+      secret-token: SECbe637f368b9c88c80d5f1866703448e6ec8addc141588745a567bb0e744e6790
       # 小艾
-      secret-token: SEC8b5aac7d5b01b18edcb5a865db4196cd9f3c818e0bb7911b8f2e0dac860e9258
+      # secret-token: SEC8b5aac7d5b01b18edcb5a865db4196cd9f3c818e0bb7911b8f2e0dac860e9258
       # secret-token: SEC3d1e37f2eb309f6692e26d0a5d5179326669580f197a2c1c7f0c8b61bc071e6f
 
 #huang:

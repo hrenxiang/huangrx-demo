@@ -43,17 +43,12 @@ class HuangrxDingmessageApplicationTests {
     @Test
     void testMarkdown() {
         MarkdownMessage markdownMessage = new MarkdownMessage();
-        markdownMessage.setIsAtAll(Boolean.TRUE);
-        markdownMessage.setTitle("茜茜！！！");
-        markdownMessage.setText("####  亲爱的老婆，还请允许傻瓜的男朋友给你道个不是！！！\n" +
-                "> 宝宝这段时间很难受！我眼睁睁的却没有做些什么\n\n" +
-                "> 虽然也有关心，但是感觉好像什么都没有做，关心也不够到位！\n" +
-                "> 还指责宝宝消极，我。。。什么也不是，你之前说过，不需要我做什么，站在你这边就是\n" +
-                "> 是我糊涂，其实你并没有很消极，你即使心里难受，昨天也还是能笑着和我聊天，我却说出那样的话\n" +
-                "> 哎，想起当时的场景，突然感觉自己有些不配，当时没有看到宝宝的坚强大度，只会鸡蛋里挑骨头\n" +
-                "> 还在那里举一些不恰当的例子，想明白了是真的很傻很傻，你根本不需要我说这些的\n" +
-                "> 宝宝，老公好好地仔细反思了\n" +
-                "> ![图片](http://5b0988e595225.cdn.sohucs.com/images/20191008/5a3e3957a9394837ad9afcf87a54c5a1.png)\n" +
+        String[] strings = new String[1];
+        strings[0] = "13598519369";
+        markdownMessage.setAtMobiles(strings);
+        markdownMessage.setTitle("兄弟们！！！");
+        markdownMessage.setText("####  陈佳欣\n" +
+                "> ![图片](http://img.duoziwang.com/2021/04/07291624709732.jpg)\n" +
                 "> ###### 具体情况请点击 [你很帅，最棒！！！](https://lh1.hetaousercontent.com/img/d103c940ce7b6cc3.jpg?thumbnail=true) \n");
 
         dingTalkRobotClient.sendMarkdownMessage(markdownMessage);
@@ -82,7 +77,7 @@ class HuangrxDingmessageApplicationTests {
     void test() {
         LinkMessage linkMessage = new LinkMessage();
         linkMessage.setMessageUrl("https://www.baidu.com");
-        linkMessage.setPicUrl("https://lh1.hetaousercontent.com/img/acdac092cbd73d44.jpg?thumbnail=true");
+        linkMessage.setPicUrl("https://www.bbc.com/zhongwen/simp/chinese-news-62388263");
         linkMessage.setText("你好，你的百度！ 不，是你的百度！");
         linkMessage.setTitle("百度是吗？");
         for (int i = 0; i <= 20; i++) {

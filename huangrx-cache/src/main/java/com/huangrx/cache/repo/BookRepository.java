@@ -6,6 +6,8 @@ public interface BookRepository {
 
     Book getByIsbn(String isbn);
 
+	Book getByIsbnNoArgs();
+
 	Book update(Book book);
 
 	void clear();
