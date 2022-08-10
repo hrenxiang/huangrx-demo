@@ -3,6 +3,7 @@ package com.huangrx.unified.exception.exception;
 import com.huangrx.unified.exception.domain.BaseResponse;
 import com.huangrx.unified.exception.domain.ResultCode;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -13,13 +14,14 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * 全局异常处理
+ * 全局异常拦截
  *
- * @author hrenxiang
- * @since 2022-04-24 9:48 PM
+ * @author jason
  */
 @Slf4j
-@RestControllerAdvice
+@RestControllerAdvice(basePackages = {
+        "huangrx.unified.exception.controller"
+})
 public class GlobalExceptionHandler {
 
     /**
@@ -41,8 +43,17 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(IllegalArgumentException.class)
     private BaseResponse<Object> handlerIllegalArgumentException(HttpServletRequest request, Exception e) {
-        log.error("URI：{}，Asserts全局异常", request.getRequestURI(), e);
+        log.error("URI：{}，全局异常", request.getRequestURI(), e);
         return BaseResponse.failed(ResultCode.SERVER_ERROR, e.getMessage());
+    }
+
+    /**
+     * Http请求消息序列化异常
+     */
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    private BaseResponse<Object> handlerErrorInfo(HttpServletRequest request, HttpMessageNotReadableException e) {
+        log.error("URI：{}，Http请求消息序列化异常", request.getRequestURI(), e);
+        return BaseResponse.failed(ResultCode.PARAMS_FAILED);
     }
 
     /**
@@ -50,12 +61,13 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(ApiException.class)
     private BaseResponse<Object> handlerErrorInfo(HttpServletRequest request, ApiException e) {
-        log.error("URI：{}，自定义全局异常", request.getRequestURI(), e);
-        if (!Objects.isNull(e.getErrorCode())) {
-            return BaseResponse.failed(e.getErrorCode());
+        log.error("URI：{}，全局异常", request.getRequestURI(), e);
+        if (Objects.isNull(e.getErrorCode())) {
+            return BaseResponse.failed(e.getMessage());
         }
-        return BaseResponse.failed(e.getMessage());
+        return BaseResponse.failed(e.getErrorCode());
     }
+
 
     /**
      * 全局异常封装响应
@@ -65,4 +77,5 @@ public class GlobalExceptionHandler {
         log.error("URI：{}，全局异常", request.getRequestURI(), e);
         return BaseResponse.failed(ResultCode.ADMIN_ERROR);
     }
+
 }

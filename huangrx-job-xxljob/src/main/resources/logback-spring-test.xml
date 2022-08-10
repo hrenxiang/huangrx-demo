@@ -50,6 +50,7 @@
         <appender-ref ref="APPLICATION" />
     </root>
 
+
     <!-- logback为java中的包 -->
     <!--<logger name="com.dudu.controller"/>-->
     <!--logback.LogbackDemo：类的全路径 -->
