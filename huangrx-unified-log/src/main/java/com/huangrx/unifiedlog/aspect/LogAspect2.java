@@ -39,7 +39,7 @@ public class LogAspect2 {
     private static final Logger LOGGER = LoggerFactory.getLogger(LogAspect2.class);
     private static final Integer DEFAULT_PORT = 80;
 
-    @Pointcut("execution(* com.huangrx.unifiedlog.controller..*.*(..))")
+    @Pointcut("execution(* com.huangrx.unifiedlog.controller..*.*(..)) && @annotation(com.huangrx.unifiedlog.aspect.LogAspectAnnotation)")
     public void log() {
     }
 
