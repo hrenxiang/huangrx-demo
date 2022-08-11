@@ -1,5 +1,6 @@
 package com.huangrx.unifiedlog.controller;
 
+import com.huangrx.unifiedlog.aspect.LogAspectAnnotation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ApiController {
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
+    @LogAspectAnnotation
     public String get() {
         return "huangrx ----- post";
     }

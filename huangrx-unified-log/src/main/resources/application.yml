@@ -6,3 +6,5 @@ server:
 spring:
   application:
     name: huangrx-unified-log
+  profiles:
+    active: test

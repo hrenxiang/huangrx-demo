@@ -13,6 +13,8 @@
               value="%red(%date{yyyy-MM-dd HH:mm:ss}) %highlight(%-5level) %red([%thread]) %boldMagenta(%logger{50}) %cyan(%msg%n)"/>
     <property name="CONSOLE_LOG_PATTERN"
               value="%blue(%date{yyyy-MM-dd HH:mm:ss}) %highlight(%-5level) %blue([%thread]) %boldMagenta(%logger{50}) %n------ %cyan(%msg%n)"/>
+    <property name="CONSOLE_LOG_PATTERN_2"
+              value="[ %date{yyyy-MM-dd HH:mm:ss.sss} ] %magenta([ %X{tract_id} ]) [ %thread ]  %magenta([ %-5level ])  [ %logger{50} ] %n%cyan(%msg) %n%n"/>
 
     <!-- 按照每天生成日志文件 -->
     <appender name="APPLICATION"
@@ -39,7 +41,7 @@
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <!-- encoder class为空时, 默认也为 ch.qos.logback.classic.encoder.PatternLayoutEncoder -->
         <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <pattern>${CONSOLE_LOG_PATTERN_2}</pattern>
             <charset>utf8</charset>
         </encoder>
     </appender>
