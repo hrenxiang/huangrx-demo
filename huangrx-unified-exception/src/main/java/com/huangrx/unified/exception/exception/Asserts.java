@@ -1,6 +1,7 @@
 package com.huangrx.unified.exception.exception;
 
 import com.huangrx.unified.exception.domain.IErrorCode;
+import org.apache.commons.lang3.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 /**
@@ -57,6 +58,15 @@ public class Asserts {
      */
     public static void isNotEmpty(Object[] strArr, String msg) {
         if (strArr == null || strArr.length < 1 ) {
+            throw new ApiException(msg);
+        }
+    }
+
+    /**
+     * 如果空或者空字符串，则抛异常
+     */
+    public static void isNotEmpty(Object object, String msg) {
+        if (ObjectUtils.isEmpty(object)) {
             throw new ApiException(msg);
         }
     }

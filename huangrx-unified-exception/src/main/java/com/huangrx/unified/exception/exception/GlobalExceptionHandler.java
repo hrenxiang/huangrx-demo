@@ -1,6 +1,7 @@
 package com.huangrx.unified.exception.exception;
 
 import com.huangrx.unified.exception.domain.BaseResponse;
+import com.huangrx.unified.exception.domain.IErrorCode;
 import com.huangrx.unified.exception.domain.ResultCode;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.HttpMessageNotReadableException;
@@ -20,7 +21,7 @@ import java.util.Objects;
  */
 @Slf4j
 @RestControllerAdvice(basePackages = {
-        "huangrx.unified.exception.controller"
+        "com.huangrx.unified.exception.controller"
 })
 public class GlobalExceptionHandler {
 
@@ -29,7 +30,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     private BaseResponse<Object> handlerErrorInfo(HttpServletRequest request, MethodArgumentNotValidException e) {
-        log.error("URI：{}，参数校验结果：{}", request.getRequestURI(), e.getMessage());
+        log.error("URI：{}，参数校验异常：{}", request.getRequestURI(), e.getMessage());
         List<ObjectError> errorList = e.getBindingResult().getAllErrors();
         ObjectError objectError = errorList.get(0);
         String failMessage = objectError.getDefaultMessage();
@@ -43,7 +44,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(IllegalArgumentException.class)
     private BaseResponse<Object> handlerIllegalArgumentException(HttpServletRequest request, Exception e) {
-        log.error("URI：{}，全局异常", request.getRequestURI(), e);
+        log.error("URI：{}，非法参数异常", request.getRequestURI(), e);
         return BaseResponse.failed(ResultCode.SERVER_ERROR, e.getMessage());
     }
 
@@ -61,7 +62,7 @@ public class GlobalExceptionHandler {
      */
     @ExceptionHandler(ApiException.class)
     private BaseResponse<Object> handlerErrorInfo(HttpServletRequest request, ApiException e) {
-        log.error("URI：{}，全局异常", request.getRequestURI(), e);
+        log.error("URI：{}，自定义API异常", request.getRequestURI(), e);
         if (Objects.isNull(e.getErrorCode())) {
             return BaseResponse.failed(e.getMessage());
         }

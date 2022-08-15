@@ -28,8 +28,8 @@ public class ApiController {
 
     @RequestMapping(value = "/getFail", method = RequestMethod.GET)
     public BaseResponse<String> getFail() {
-        // Asserts.isTrue("1".equals("2"), "正确");
-        // throw new IndexOutOfBoundsException();
+        Asserts.isTrue("1".equals("2"), "不相等");
+        //throw new IndexOutOfBoundsException();
         return BaseResponse.failed(ResultCode.FAILED, "huangrx， 你帅我也不能让你过去！！！");
     }
 }
