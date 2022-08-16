@@ -3,6 +3,7 @@ package com.huangrx.rabbitmq.listener;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageListener;
+import org.springframework.stereotype.Component;
 
 import java.nio.charset.StandardCharsets;
 
@@ -13,6 +14,7 @@ import java.nio.charset.StandardCharsets;
  * @since    2022/4/28 10:26 AM
  */
 @Slf4j
+@Component
 public class MqListener implements MessageListener {
 
     @Override

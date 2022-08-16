@@ -52,7 +52,6 @@ public class TestController {
 
     @PostMapping(value = "/test3")
     public String sendTest3(String msg) {
-        System.out.println(msg);
         rabbitMqUtils.sendByRoutingKey("spring-delay-exchange",
                 "ab.delay", msg);
         return "发送成功！";
