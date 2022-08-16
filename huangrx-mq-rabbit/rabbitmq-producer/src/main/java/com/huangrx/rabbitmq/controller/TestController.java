@@ -4,6 +4,7 @@ import com.huangrx.rabbitmq.constants.RabbitMqConstants;
 import com.huangrx.rabbitmq.mq.MessageBase;
 import com.huangrx.rabbitmq.mq.RabbitMqUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.Message;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,9 +32,9 @@ public class TestController {
      * @return 发送成功
      */
     @PostMapping(value = "/test1")
-    public String sendTest1(@RequestBody MessageBase<String> msg) {
+    public String sendTest1() {
         rabbitMqUtils.sendByRoutingKey(RabbitMqConstants.EXCHANGE_NAME,
-                RabbitMqConstants.TOPIC_TEST1_ROUTING_KEY_TEST, msg);
+                RabbitMqConstants.TOPIC_TEST1_ROUTING_KEY_TEST, "爱真的需要勇气！");
         return "发送成功！";
     }
 

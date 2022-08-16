@@ -8,8 +8,24 @@ logging:
 
 spring:
   rabbitmq:
-    host: 192.168.2.105 # ip地址
+    host: 10.58.128.176 # ip地址
     port: 5672
     username: admin # 连接账号
     password: admin # 连接密码
     virtual-host: /admin
+    listener:
+      type: simple
+      simple:
+        acknowledge-mode: auto # 开启手动确认 none：自动确认，确认后消息就会从队列中删除
+        prefetch: 1 # 限制每次发送一条数据。 (每次抓取多少条数据，并不是越大越好，2版本以后默认 250)
+        concurrency: 1 # 同一个队列启动几个消费者 (多线程)
+        max-concurrency: 3 # 启动消费者最大数量 (最大线程)
+        # 重试策略相关配置
+        retry:
+          enabled: true # 是否支持重试
+          max-attempts: 5 #最大重试次数
+          stateless: true # 不论重试是有状态的还是无状态的（如果设置false 则不会重试上面设置的5次）
+          multiplier: 2 # 时间策略乘数因子
+          initial-interval: 2000
+          max-interval: 10000
+        #default-requeue-rejected: true
