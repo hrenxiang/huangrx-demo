@@ -11,6 +11,9 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * RabbitMQConfig
  *
@@ -90,6 +93,64 @@ public class RabbitMqInitConfig {
     public Binding bindingGitalk(@Qualifier(RabbitMqConstants.TEST2_QUEUE) Queue queue,
                                  @Qualifier(RabbitMqConstants.EXCHANGE_NAME) Exchange exchange) {
         return BindingBuilder.bind(queue).to(exchange).with(RabbitMqConstants.TOPIC_TEST2_ROUTING_KEY).noargs();
+    }
+
+    /**
+     * 延迟交换机
+     * @return 通配符交换机
+     */
+    @Bean(RabbitMqConstants.DELAY_EXCHANGE_NAME)
+    public TopicExchange topicExchange(){
+        //return new TopicExchange("spring-delay-exchange",true,false);
+        return ExchangeBuilder.topicExchange(RabbitMqConstants.DELAY_EXCHANGE_NAME).build();
+    }
+
+    /**
+     * 延迟队列
+     * @return 延迟队列
+     */
+    @Bean(RabbitMqConstants.SPRING_DELAY_QUEUE)
+    public Queue queue(){
+        Map<String,Object> arguments = new HashMap<>(5);
+        arguments.put("x-message-ttl",10000);
+        arguments.put("x-dead-letter-exchange",RabbitMqConstants.DEAD_EXCHANGE_NAME);
+        arguments.put("x-dead-letter-rk",RabbitMqConstants.TOPIC_SPRING_DEAD_ROUTING_KEY);
+        return new Queue(RabbitMqConstants.DELAY_EXCHANGE_NAME,true,false,false,arguments);
+//        return QueueBuilder.durable("spring-delay-queue")
+//                .withArgument("x-message-ttl", 10000)
+//                .withArgument("x-dead-letter-exchange", "spring-dead-exchange")
+//                .withArgument("x-dead-letter-routing-key", "ab.dead")
+//                .build();
+    }
+
+    @Bean
+    public Binding binding(@Qualifier(RabbitMqConstants.DELAY_EXCHANGE_NAME) TopicExchange topicExchange,
+                           @Qualifier(RabbitMqConstants.SPRING_DELAY_QUEUE) Queue queue){
+        return BindingBuilder.bind(queue).to(topicExchange).with(RabbitMqConstants.TOPIC_SPRING_DELAY_ROUTING_KEY);
+    }
+
+    /**
+     * 死信交换机
+     * @return 通配符交换机
+     */
+    @Bean(RabbitMqConstants.DEAD_EXCHANGE_NAME)
+    public TopicExchange deadExchange(){
+        return ExchangeBuilder.topicExchange(RabbitMqConstants.DEAD_EXCHANGE_NAME).build();
+    }
+
+    /**
+     * 死信队列
+     * @return 死信队列
+     */
+    @Bean(RabbitMqConstants.SPRING_DEAD_QUEUE)
+    public Queue deadQueue(){
+        return QueueBuilder.durable(RabbitMqConstants.SPRING_DEAD_QUEUE).build();
+    }
+
+    @Bean
+    public Binding deadBinding(@Qualifier(RabbitMqConstants.DEAD_EXCHANGE_NAME) TopicExchange deadExchange,
+                               @Qualifier(RabbitMqConstants.SPRING_DEAD_QUEUE) Queue deadQueue){
+        return BindingBuilder.bind(deadQueue).to(deadExchange).with(RabbitMqConstants.TOPIC_SPRING_DEAD_ROUTING_KEY);
     }
 
 }

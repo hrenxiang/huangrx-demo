@@ -16,7 +16,7 @@ spring:
     listener:
       type: simple
       simple:
-        acknowledge-mode: auto # 开启手动确认 none：自动确认，确认后消息就会从队列中删除
+        acknowledge-mode: manual # 开启手动确认 none：自动确认，确认后消息就会从队列中删除 （重试最好使用自动确认）
         prefetch: 1 # 限制每次发送一条数据。 (每次抓取多少条数据，并不是越大越好，2版本以后默认 250)
         concurrency: 1 # 同一个队列启动几个消费者 (多线程)
         max-concurrency: 3 # 启动消费者最大数量 (最大线程)

@@ -22,4 +22,16 @@ public class RabbitMqConstants {
 
     public final static String TOPIC_TEST2_ROUTING_KEY_TEST = "topic.test2.test";
 
+    public final static String DELAY_EXCHANGE_NAME = "spring-delay-exchange";
+
+    public final static String DEAD_EXCHANGE_NAME = "spring-dead-exchange";
+
+    public final static String SPRING_DELAY_QUEUE = "spring-delay-queue";
+
+    public final static String SPRING_DEAD_QUEUE = "spring-dead-queue";
+
+    public final static String TOPIC_SPRING_DELAY_ROUTING_KEY = "ab.delay";
+
+    public final static String TOPIC_SPRING_DEAD_ROUTING_KEY = "ab.dead";
+
 }
