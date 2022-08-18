@@ -8,6 +8,7 @@
     <modules>
         <module>huangrx-dubbo-provider</module>
         <module>huangrx-dubbo-consumer</module>
+        <module>huangrx-dubbo-api</module>
     </modules>
     <packaging>pom</packaging>
 
