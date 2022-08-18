@@ -1,0 +1,18 @@
+server:
+  port: 8001
+
+dubbo:
+  application:
+    #dubbo的应用名称
+    name: dubbo-provider
+  protocol:
+    #协议名称
+    name: dubbo
+    #协议端口
+    port: 20880
+  registry:
+    #zk服务的地址
+    address: zookeeper://127.0.0.1:2181
+  provider:
+    #服务的超时时间，单位是ms，默认是1000
+    timeout: 20000
