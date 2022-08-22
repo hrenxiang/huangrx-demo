@@ -1,5 +1,10 @@
 package com.huangrx.dingmessage;
 
+import com.dingtalk.api.request.OapiRobotSendRequest;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.huangrx.dingmessage.official.event.DingTalkEvent;
+import com.huangrx.dingmessage.official.event.DingTalkMessageType;
 import com.huangrx.dingmessage.robot.client.DingTalkRobotClient;
 import com.huangrx.dingmessage.robot.entity.DingTalkResponse;
 import com.huangrx.dingmessage.robot.entity.LinkMessage;
@@ -12,15 +17,19 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 
+import javax.annotation.Resource;
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 @SpringBootTest
@@ -156,6 +165,47 @@ class HuangrxDingmessageApplicationTests {
         restTemplate.postForObject(小艾, entity, DingTalkResponse.class);
         restTemplate.postForObject(小洁, entity, DingTalkResponse.class);
         restTemplate.postForObject(小晚, entity, DingTalkResponse.class);
+    }
+
+
+    @Resource
+    private ApplicationContext applicationContext;
+    @Test
+    void testLinkEvent() throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        OapiRobotSendRequest.Link link = new OapiRobotSendRequest.Link();
+        link.setText("百度");
+        link.setTitle("nihao");
+        link.setMessageUrl("http://www.baidu.com");
+        OapiRobotSendRequest.At at = new OapiRobotSendRequest.At();
+        at.setIsAtAll(true);
+
+        DingTalkEvent event = new DingTalkEvent(objectMapper.writeValueAsString(link),
+                "https://oapi.dingtalk.com/robot/send",
+                "SECbe637f368b9c88c80d5f1866703448e6ec8addc141588745a567bb0e744e6790",
+                DingTalkMessageType.LINK,
+                objectMapper.writeValueAsString(at),
+                Boolean.TRUE,
+                "96d63fd283ecd9f90600ae18bf2b57fafe3fdf1e7293e430ac98143193b367b0");
+        applicationContext.publishEvent(event);
+    }
+
+    @Test
+    void testTextEvent() throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        OapiRobotSendRequest.At at = new OapiRobotSendRequest.At();
+        List<String> list = new ArrayList<>();
+        list.add("15637613303");
+        at.setAtMobiles(list);
+
+        DingTalkEvent event = new DingTalkEvent("我的田田宝贝！我很喜欢你哦，要加油哦！",
+                "https://oapi.dingtalk.com/robot/send",
+                "SECbe637f368b9c88c80d5f1866703448e6ec8addc141588745a567bb0e744e6790",
+                DingTalkMessageType.TEXT,
+                objectMapper.writeValueAsString(at),
+                Boolean.TRUE,
+                "96d63fd283ecd9f90600ae18bf2b57fafe3fdf1e7293e430ac98143193b367b0");
+        applicationContext.publishEvent(event);
     }
 
 }

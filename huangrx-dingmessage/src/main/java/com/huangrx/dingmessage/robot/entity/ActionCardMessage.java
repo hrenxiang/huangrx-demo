@@ -5,6 +5,7 @@ import com.huangrx.dingmessage.robot.type.HideAvatarType;
 import com.huangrx.dingmessage.robot.type.MessageType;
 import org.springframework.util.StringUtils;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +17,7 @@ import java.util.Map;
  * @author    hrenxiang
  * @since     2022/6/27 12:45
  */
-public class ActionCardMessage extends BaseMessage {
+public class ActionCardMessage extends BaseMessage implements Serializable {
 
     /**
      * 钉钉官网给的SDK上的按钮最多5个，最少1个。
@@ -27,6 +28,7 @@ public class ActionCardMessage extends BaseMessage {
      */
     private static final int MAX_BUTTON_COUNT = 5;
     private static final int MIN_BUTTON_COUNT = 0;
+    private static final long serialVersionUID = -2954836922541004192L;
 
     /**
      * 标题
