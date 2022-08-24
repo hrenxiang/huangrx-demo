@@ -15,4 +15,8 @@
         id, name, age, email
     </sql>
 
+    <select id="selectAll1" resultType="com.huangrx.mybatisplus.model.entity.User">
+        select * from `user` ${ew.customSqlSegment}
+    </select>
+
 </mapper>

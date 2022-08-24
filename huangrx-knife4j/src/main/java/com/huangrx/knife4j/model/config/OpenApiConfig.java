@@ -3,6 +3,7 @@ package com.huangrx.knife4j.model.config;
 import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import com.github.xiaoymin.knife4j.spring.extension.OpenApiExtensionResolver;
 import com.huangrx.knife4j.model.enums.ResponseStatus;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -44,8 +45,7 @@ public class OpenApiConfig {
                 .groupName("huangrx-demo")
                 .select()
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
-                .apis(RequestHandlerSelectors.basePackage("com.huangrx.knife4j.controller"))
-                .paths(PathSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("com.huangrx.knife4j"))
                 .build()
                 //每一个请求都可以添加header
                 .globalRequestParameters(getGlobalRequestParameters())

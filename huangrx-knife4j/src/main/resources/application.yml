@@ -7,4 +7,7 @@ knife4j:
     enable: true
     username: huangrx
     password: huangrx
+  setting:
+    enableSwaggerModels: true
+    swaggerModelName: 实体模块
 
