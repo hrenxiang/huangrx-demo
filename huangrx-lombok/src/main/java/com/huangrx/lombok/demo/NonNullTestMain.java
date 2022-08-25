@@ -23,12 +23,12 @@ public class NonNullTestMain {
         if (str != null) {
             System.out.println(str.length());
         } else {
-            throw new NullPointerException("null");
+            throw new NullPointerException("str is marked non-null but is null");
         }
     }
 
     public static void main(String[] args) {
-        new NonNullTestMain().notNullExample(StringUtils.EMPTY);
-        new NonNullTestMain().notNullExample2(StringUtils.EMPTY);
+        //new NonNullTestMain().notNullExample(null);
+        new NonNullTestMain().notNullExample2(null);
     }
 }

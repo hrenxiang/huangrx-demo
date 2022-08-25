@@ -5,6 +5,7 @@ import com.github.xiaoymin.knife4j.spring.extension.OpenApiExtensionResolver;
 import com.huangrx.knife4j.model.enums.ResponseStatus;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -42,7 +43,7 @@ public class OpenApiConfig {
         return new Docket(DocumentationType.OAS_30)
                 //开启个人信息
                 .apiInfo(apiInfo())
-                .groupName("huangrx-demo")
+                .groupName("huangrx-address")
                 .select()
                 .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .apis(RequestHandlerSelectors.basePackage("com.huangrx.knife4j"))
@@ -77,5 +78,33 @@ public class OpenApiConfig {
         return ResponseStatus.HTTP_STATUS_ALL.stream().map(
                         a -> new ResponseBuilder().code(a.getResponseCode()).description(a.getDescription()).build())
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * 引入Knife4j提供的扩展类
+     */
+    private final OpenApiExtensionResolver openApiExtensionResolver;
+
+    @Autowired
+    public OpenApiConfig(OpenApiExtensionResolver openApiExtensionResolver) {
+        this.openApiExtensionResolver = openApiExtensionResolver;
+    }
+
+
+    @Bean
+    public Docket TestApi() {
+        return new Docket(DocumentationType.OAS_30)
+                //开启个人信息
+                .apiInfo(apiInfo())
+                .groupName("huangrx-test")
+                .select()
+                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
+                .apis(RequestHandlerSelectors.basePackage("com.huangrx.knife4j"))
+                .build()
+                //每一个请求都可以添加header
+                .globalRequestParameters(getGlobalRequestParameters())
+                .globalResponses(HttpMethod.GET, getGlobalResponse())
+                .globalResponses(HttpMethod.POST, getGlobalResponse())
+                .extensions(openApiExtensionResolver.buildExtensions("huangrx-test"));
     }
 }

@@ -2,8 +2,10 @@ package com.huangrx.mybatisplus.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.huangrx.mybatisplus.config.ApiContextRunner;
 import com.huangrx.mybatisplus.mapper.primary.UserMapper;
 import com.huangrx.mybatisplus.model.entity.User;
 import com.huangrx.mybatisplus.service.UserService;
@@ -34,6 +36,8 @@ public class UserController {
     private UserService userService;
     @Resource
     private UserMapper userMapper;
+    @Resource
+    private ApiContextRunner runner;
 
     /**
      * 添加用户信息
@@ -48,6 +52,7 @@ public class UserController {
         user.setName(username);
         user.setAge(age);
         user.setEmail(email);
+
         return userService.save(user);
     }
 
@@ -200,11 +205,17 @@ public class UserController {
      */
     @RequestMapping(value = "/updateUserByConditions", method = RequestMethod.PUT)
     public Integer updateUserByConditions(@RequestBody User user) {
+        LambdaUpdateWrapper<User> wrapper = Wrappers.<User>lambdaUpdate()
+                .eq(User::getId, user.getId());
+//        测试乐观锁
+//        this.userMapper.update(
+//                user,
+//                wrapper
+//        );
 
         return this.userMapper.update(
                 user,
-                Wrappers.<User>lambdaUpdate()
-                        .eq(User::getId, user.getId())
+                wrapper
         );
     }
 

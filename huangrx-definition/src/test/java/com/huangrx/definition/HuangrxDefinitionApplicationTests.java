@@ -1,11 +1,17 @@
 package com.huangrx.definition;
 
+import net.coobird.thumbnailator.Thumbnails;
 import net.minidev.json.JSONArray;
 import net.minidev.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.context.SpringBootTest;
+import sun.misc.BASE64Decoder;
+import sun.misc.BASE64Encoder;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.*;
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -159,6 +165,44 @@ class HuangrxDefinitionApplicationTests {
         model.setAge(1000);
 
         System.out.println(models.get(2).toString());
+    }
+
+    @Test
+    void test5() throws IOException {
+//        String s = PhotoUtils.ImageToBase64ByOnline("https://images.huangrx.cn/uploads/2022/08/24/630606ff4871e.png");
+//        System.out.println(s);
+//        PhotoUtils.Base64ToImage(s, "/Users/hrenxiang/Downloads/1.png");
+
+
+        ByteArrayOutputStream data = new ByteArrayOutputStream();
+        //InputStream inputStream = FileUtils.downloadByUrl("https://images.huangrx.cn/uploads/2022/08/24/630606ff4871e.png");
+        try (FileInputStream inputStream = new FileInputStream(new File("/Users/hrenxiang/Downloads/630606ff4871e.png"))) {
+            byte[] by = new byte[1024];
+            // 将内容读取内存中
+            int len = -1;
+            while ((len = inputStream.read(by)) != -1) {
+                data.write(by, 0, len);
+            }
+        }
+//        InputStream stream = new ByteArrayInputStream(data.toByteArray());
+//        BufferedImage bim = ImageIO.read(stream);
+//        //计算宽高
+//        int srcWidth = bim.getWidth();
+//        int srcHeight = bim.getHeight();
+//        int destWidth = new BigDecimal(srcWidth).multiply(new BigDecimal(0.9)).intValue();
+//        int destHeight = new BigDecimal(srcHeight).multiply(new BigDecimal(0.9)).intValue();
+//        BufferedImage output = Thumbnails.of(bim)
+//                .size(destWidth, destHeight)
+//                .outputQuality(0.9).asBufferedImage();
+//        String base64Out = PhotoUtils.imageToBase64(output);
+
+        // 转换为base64即可，无需上述累赘操作
+        BASE64Encoder encoder = new BASE64Encoder();
+        String base64Out = encoder.encode(data.toByteArray());
+
+        // 递归去计算是否达到需要的尺寸
+        String s = PhotoUtils.compressPicCycle(base64Out, 1536, 0.9);
+        PhotoUtils.Base64ToImage(s, "/Users/hrenxiang/Downloads/2.png");
     }
 
 }

@@ -3,6 +3,7 @@ package com.huangrx.mybatisplus.model.entity;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.Version;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import java.io.Serializable;
 import java.util.Date;
@@ -51,6 +52,8 @@ public class User extends Model<User> {
      * value  有效值 true   默认0
      * delval 无效值 false  默认1
      *
+     * 数据库中，bit'0' = false , bit'1'= true
+     *
      * 开启后，查询时也会在sql语句后加上 有效标识，只能查出来有效的数据
      */
     @TableLogic(value = "1", delval = "0")
@@ -73,6 +76,12 @@ public class User extends Model<User> {
      * 数据隔离 租户标识（商户id）
      */
     private Integer tenantId;
+
+    /**
+     * 版本字段
+     */
+    @Version
+    private Integer version;
 
 
     @Override

@@ -95,7 +95,7 @@ public class PhotoUtils {
      * @return
      * @throws IOException
      */
-    private static String compressPicCycle(String base64, long targetSize, double accuracy) throws IOException {
+    public static String compressPicCycle(String base64, long targetSize, double accuracy) throws IOException {
         BASE64Decoder decoder = new BASE64Decoder();
         byte[] bytes1 = decoder.decodeBuffer(base64);
         InputStream stream = new ByteArrayInputStream(bytes1);

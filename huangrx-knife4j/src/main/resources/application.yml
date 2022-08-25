@@ -10,4 +10,12 @@ knife4j:
   setting:
     enableSwaggerModels: true
     swaggerModelName: 实体模块
+  enable: true
+  # 开启生产环境屏蔽
+  # production: true
+  documents:
+    -
+      group: huangrx-test
+      name: 自定义文档说明
+      locations: classpath:markdown/*
 

@@ -17,7 +17,7 @@ public class SynchronizedTestMain {
     /**
      * 相当于
      *
-     * private static final Object $LOCK = new Object[0];
+     *     private static final Object $LOCK = new Object[0];
      *     public static void hello() {
      *         synchronized ($LOCK) {
      *             System.out.println("world");

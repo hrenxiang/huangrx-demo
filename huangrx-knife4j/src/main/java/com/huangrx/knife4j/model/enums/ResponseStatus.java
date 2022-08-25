@@ -14,8 +14,11 @@ import java.util.List;
 @AllArgsConstructor
 public enum ResponseStatus {
 
-    SUCCESS("200", "success"),
-    FAIL("500", "failed"),
+    /**
+     * code 不要一样，如果一样，前台会不展示，浅显的看不是后端取消掉的，可能是前端
+     */
+    SUCCESS("0", "success"),
+    FAIL("-1", "failed"),
 
     HTTP_STATUS_200("200", "ok"),
     HTTP_STATUS_400("400", "request error"),
@@ -24,7 +27,7 @@ public enum ResponseStatus {
     HTTP_STATUS_500("500", "server error");
 
     public static final List<ResponseStatus> HTTP_STATUS_ALL = Collections.unmodifiableList(
-            Arrays.asList(HTTP_STATUS_200, HTTP_STATUS_400, HTTP_STATUS_401, HTTP_STATUS_403, HTTP_STATUS_500
+            Arrays.asList(SUCCESS, FAIL, HTTP_STATUS_200, HTTP_STATUS_400, HTTP_STATUS_401, HTTP_STATUS_403, HTTP_STATUS_500
             ));
 
     /**

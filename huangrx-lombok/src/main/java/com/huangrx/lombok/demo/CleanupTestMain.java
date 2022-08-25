@@ -2,10 +2,7 @@ package com.huangrx.lombok.demo;
 
 import lombok.Cleanup;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 
 /**
  * `@Cleanup`：自动管理资源，用在局部变量之前，在当前变量范围内即将执行完毕退出之前会自动清理资源，自动生成`try-finally`这样的代码来关闭流
@@ -15,29 +12,37 @@ import java.io.InputStream;
  */
 public class CleanupTestMain {
 
+    /**
+     * // main方法中的代码，将生成以下代码
+     *         @Cleanup FileInputStream inStream = new FileInputStream(in);
+     *         try {
+     *             @Cleanup FileOutputStream outStream = new FileOutputStream(out);
+     *             try {
+     *                 byte[] b = new byte[65536];
+     *                 while (true) {
+     *                     int r = inStream.read(b);
+     *                     if (r == -1) {
+     *                          break;
+     *                     }
+     *                     outStream.write(b, 0, r);
+     *                 }
+     *             } finally {
+     *                 if (outStream != null) outStream.close();
+     *             }
+     *         } finally {
+     *             if (inStream != null) inStream.close();
+     *         }
+     */
     public static void main(String[] args) throws IOException {
-        try {
-            @Cleanup InputStream inputStream = new FileInputStream("");
-            System.out.println(inputStream);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        // 上述等同于如下
-        InputStream inputStream = null;
-        try {
-            inputStream = new FileInputStream("");
-            System.out.println(inputStream);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } finally {
-            if (inputStream != null) {
-                try {
-                    inputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        @Cleanup FileInputStream inStream = new FileInputStream(new File(""));
+        @Cleanup FileOutputStream outStream = new FileOutputStream(new File(""));
+        byte[] b = new byte[65536];
+        while (true) {
+            int r = inStream.read(b);
+            if (r == -1) {
+                break;
             }
+            outStream.write(b, 0, r);
         }
     }
 

@@ -1,6 +1,8 @@
 package com.huangrx.knife4j.controller;
 
+import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
+import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import com.huangrx.knife4j.model.enums.ResponseStatus;
 import com.huangrx.knife4j.model.vo.AddressParam;
 import io.swagger.annotations.Api;
@@ -19,7 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
  * @author pdai
  */
 @Api(value = "Address Interfaces", tags = "地址模块")
-@ApiSort(2)
+//@ApiSort(2)
+@ApiSupport(order = 2)
 @RestController
 @RequestMapping("/address")
 public class AddressController {
