@@ -20,7 +20,8 @@ public class GetSetToEqHaNoAllTestMain {
         Person person = new Person();
 
         person.setAddress("hahaha");
-        //person.setName("test"); // java: setName(java.lang.String) 在 com.huangrx.lombok.entity.Person 中是 private 访问控制
+        // java: setName(java.lang.String) 在 com.huangrx.lombok.entity.Person 中是 private 访问控制
+        // person.setName("test");
         person.setAge(12);
         person.setBirthday(new Date());
 

@@ -24,7 +24,7 @@ public class ApiServiceImpl implements ApiService {
         userExcelTemplates.add(generateUser());
         userExcelTemplates.add(generateUser());
         try {
-            ExcelUtils.exportExcel(userExcelTemplates, "user", "sheet1", UserExcelTemplate.class, "user-1", response);
+            ExcelUtils.exportExcel(userExcelTemplates, "user", "sheet1", UserExcelTemplate.class, "基本信息", response);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
