@@ -1,4 +1,4 @@
-package com.huangrx.huangrx.redis.vo;
+package com.huangrx.huangrx.redis.model.vo;
 
 import lombok.Data;
 

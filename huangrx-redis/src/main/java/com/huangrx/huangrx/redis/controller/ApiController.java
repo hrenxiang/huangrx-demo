@@ -2,12 +2,17 @@ package com.huangrx.huangrx.redis.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.huangrx.huangrx.redis.model.entity.Person;
 import com.huangrx.huangrx.redis.service.RedisService;
+import com.huangrx.huangrx.redis.util.JacksonUtil;
 import com.huangrx.huangrx.redis.util.ObjectValCheck;
-import com.huangrx.huangrx.redis.vo.Demo;
+import com.huangrx.huangrx.redis.model.vo.Demo;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.huangrx.huangrx.redis.service.CacheConstants.TEST_KEY;
 import static com.huangrx.huangrx.redis.service.CacheConstants.generateKey;
@@ -50,4 +55,73 @@ public class ApiController {
         Boolean del = redisService.del(key);
         return ObjectValCheck.isTrue(del) ? "缓存删除成功！！！" : "缓存删除失败！！！";
     }
+
+    private static final List<Person> personList = new ArrayList<Person>();
+
+    static {
+        Person john = Person.builder()
+                .name("John")
+                .email("john@example.com")
+                .pid("111")
+                .build();
+        personList.add(john);
+
+        Person alisa = Person.builder()
+                .name("alisa")
+                .email("alisa@example.com")
+                .pid("333")
+                .build();
+        personList.add(alisa);
+
+        Person nn = Person.builder()
+                .name("nn")
+                .email("nn@example.com")
+                .pid("444")
+                .build();
+        personList.add(nn);
+
+        Person vv = Person.builder()
+                .name("xx")
+                .email("xx@example.com")
+                .pid("555")
+                .build();
+        personList.add(vv);
+
+        Person bb = Person.builder()
+                .name("bb")
+                .email("bb@example.com")
+                .pid("666")
+                .build();
+        personList.add(bb);
+
+        Person dd = Person.builder()
+                .name("dd")
+                .email("dd@example.com")
+                .pid("777")
+                .build();
+        personList.add(dd);
+
+        Person ww = Person.builder()
+                .name("ww")
+                .email("ww@example.com")
+                .pid("888")
+                .build();
+        personList.add(ww);
+
+        Person hh = Person.builder()
+                .name("hh")
+                .email("hh@example.com")
+                .pid("999")
+                .build();
+        personList.add(hh);
+    }
+
+    @RequestMapping(value = "/setPerson", method = RequestMethod.GET)
+    public String setPerson() {
+        String key = generateKey(TEST_KEY, "persons");
+        redisService.set(key, JacksonUtil.to(personList));
+        return "添加缓存成功！！！";
+    }
+
+
 }
