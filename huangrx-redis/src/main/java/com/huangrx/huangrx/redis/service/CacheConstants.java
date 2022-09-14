@@ -12,6 +12,8 @@ import java.util.stream.Stream;
 public interface CacheConstants {
 
     String TEST_KEY = "TEST";
+    String DISTRIBUTED_LOCK_KEY = "DISTRIBUTED_LOCK";
+    String DISTRIBUTED_REDISSON_KEY = "DISTRIBUTED_REDISSON";
 
     /**
      * 生成 redis key

@@ -2,7 +2,9 @@ package com.huangrx.huangrx.redis.controller;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.huangrx.huangrx.redis.model.entity.Person;
+import com.huangrx.huangrx.redis.service.CacheConstants;
 import com.huangrx.huangrx.redis.service.RedisService;
 import com.huangrx.huangrx.redis.util.JacksonUtil;
 import com.huangrx.huangrx.redis.util.ObjectValCheck;
@@ -11,8 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.huangrx.huangrx.redis.service.CacheConstants.TEST_KEY;
 import static com.huangrx.huangrx.redis.service.CacheConstants.generateKey;
@@ -34,18 +41,21 @@ public class ApiController {
 
     @RequestMapping(value = "/set", method = RequestMethod.GET)
     public String set() {
-        String key = generateKey(TEST_KEY, 3, 4);
+        String key = generateKey(TEST_KEY, 3, 7);
+
         JSONObject jsonObject = new JSONObject();
         jsonObject.put("value1", "h");
         jsonObject.put("value2", "r");
         jsonObject.put("isBoy", 1);
         redisService.set(key,jsonObject.toString());
+
+        redisService.set(CacheConstants.generateKey(CacheConstants.DISTRIBUTED_LOCK_KEY, "setNx", "num"), 0);
         return "添加缓存成功！！！";
     }
 
     @RequestMapping(value = "/get", method = RequestMethod.GET)
     public String get() {
-        String key = generateKey(TEST_KEY, 1, 2);
+        String key = generateKey(TEST_KEY, 3, 4);
         return "获取缓存成功！！！" + JSON.parseObject(redisService.get(key).toString(), Demo.class);
     }
 
@@ -54,6 +64,37 @@ public class ApiController {
         String key = generateKey(TEST_KEY, 1, 2);
         Boolean del = redisService.del(key);
         return ObjectValCheck.isTrue(del) ? "缓存删除成功！！！" : "缓存删除失败！！！";
+    }
+
+    @RequestMapping(value = "/setPerson", method = RequestMethod.GET)
+    public String setPerson() {
+        String key = generateKey(TEST_KEY, "persons");
+        //redisService.set(key, JacksonUtil.toJson(personList));
+        return "添加缓存成功！！！";
+    }
+
+
+    public static void main(String[] args) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("value1", "h");
+        map.put("value2", "r");
+        map.put("isBoy", 1);
+
+        System.out.println(JacksonUtil.toJson(map));
+
+        System.out.println(JacksonUtil.toJson(personList));
+
+        try {
+            URL url = new URL("file:///Users/hrenxiang/Downloads/hh.txt");
+            System.out.println(url);
+            System.out.println(JacksonUtil.parseUrl(url, new TypeReference<List<Person>>() {}));
+            System.out.println(JacksonUtil.parseUrl(url, Person.class));
+            System.out.println(JacksonUtil.parseFile(new File("/Users/hrenxiang/Downloads/hh.txt"), Person.class));
+
+        } catch (MalformedURLException e) {
+            throw new RuntimeException(e);
+        }
+
     }
 
     private static final List<Person> personList = new ArrayList<Person>();
@@ -115,13 +156,5 @@ public class ApiController {
                 .build();
         personList.add(hh);
     }
-
-    @RequestMapping(value = "/setPerson", method = RequestMethod.GET)
-    public String setPerson() {
-        String key = generateKey(TEST_KEY, "persons");
-        redisService.set(key, JacksonUtil.to(personList));
-        return "添加缓存成功！！！";
-    }
-
 
 }

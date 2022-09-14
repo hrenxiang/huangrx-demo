@@ -1,14 +1,15 @@
 package com.huangrx.huangrx.redis.service.impl;
 
+import com.huangrx.huangrx.redis.service.CacheConstants;
 import com.huangrx.huangrx.redis.service.RedisService;
+import org.checkerframework.checker.units.qual.K;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.script.DefaultRedisScript;
+import org.springframework.data.redis.core.script.RedisScript;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -29,8 +30,23 @@ public class RedisServiceImpl implements RedisService {
     }
 
     @Override
+    public void set(String key, Object value, long time, TimeUnit timeUnit) {
+        redisTemplate.opsForValue().set(key, value, time, timeUnit);
+    }
+
+    @Override
     public void set(String key, Object value) {
         redisTemplate.opsForValue().set(key, value);
+    }
+
+    @Override
+    public Boolean setNx(String key, Object value) {
+        return redisTemplate.opsForValue().setIfAbsent(key, value);
+    }
+
+    @Override
+    public Boolean setNx(String key, Object value, long time, TimeUnit timeUnit) {
+        return redisTemplate.opsForValue().setIfAbsent(key, value, time, timeUnit);
     }
 
     @Override
@@ -205,4 +221,10 @@ public class RedisServiceImpl implements RedisService {
     public int countKey(String keyPrefix) {
         return Objects.requireNonNull(redisTemplate.keys(keyPrefix)).size();
     }
+
+    @Override
+    public <T> T execute(String script, Class<T> resultType, List<String> keys, Object... values) {
+        return redisTemplate.execute(new DefaultRedisScript<>(script, resultType), keys, values);
+    }
+
 }

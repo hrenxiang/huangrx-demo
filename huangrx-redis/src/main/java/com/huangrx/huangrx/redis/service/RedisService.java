@@ -3,6 +3,7 @@ package com.huangrx.huangrx.redis.service;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Redis 方法接口
@@ -23,8 +24,35 @@ public interface RedisService {
 
     /**
      * 保存属性
+     *
+     * @param key key
+     * @param value value
+     * @param time time
+     */
+    void set(String key, Object value, long time, TimeUnit timeUnit);
+
+    /**
+     * 保存属性
      */
     void set(String key, Object value);
+
+    /**
+     * 不存在保存属性，存在不保存
+     * @param key key
+     * @param value value
+     * @return boolean
+     */
+    Boolean setNx(String key, Object value);
+
+    /**
+     * 不存在保存属性，存在不保存
+     * @param key key
+     * @param value value
+     * @param time time
+     * @param timeUnit timeUnit
+     * @return  boolean
+     */
+    Boolean setNx(String key, Object value, long time, TimeUnit timeUnit);
 
     /**
      * 获取属性
@@ -192,4 +220,14 @@ public interface RedisService {
      * @return
      */
     int countKey(String keyPrefix);
+
+    /**
+     * 使用Lua脚本
+     * @param script script
+     * @param resultType resultType
+     * @param keys keys
+     * @param values values
+     * @return  object
+     */
+    <T> T execute(String script, Class<T> resultType, List<String> keys, Object...values);
 }

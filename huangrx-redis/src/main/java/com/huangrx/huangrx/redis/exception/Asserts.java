@@ -1,5 +1,6 @@
 package com.huangrx.huangrx.redis.exception;
 
+import com.huangrx.huangrx.redis.domain.IErrorCode;
 import org.springframework.util.StringUtils;
 
 /**

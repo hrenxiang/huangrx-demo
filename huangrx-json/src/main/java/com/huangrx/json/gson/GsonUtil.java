@@ -28,7 +28,7 @@ import java.util.*;
  * @since     2022/5/24 10:20 PM
  */
 public class GsonUtil {
-    private static Gson gson;
+    private static final Gson gson;
 
     static {
         GsonBuilder gsonBuilder = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -95,7 +95,7 @@ public class GsonUtil {
             JsonReader reader = new JsonReader(new FileReader(file));
             return gson.fromJson(reader, type);
         } catch (FileNotFoundException e) {
-            throw new ApiException("gson from error, file path: {}, type: {}", file.getPath(), type, e);
+            throw new ApiException(String.format("gson from error, file path: %s, type: %s", file.getPath(), type), e);
         }
     }
 
@@ -107,7 +107,7 @@ public class GsonUtil {
             JsonReader reader = new JsonReader(new FileReader(file));
             return gson.fromJson(reader, typeToken.getType());
         } catch (FileNotFoundException e) {
-            throw new ApiException("gson from error, file path: {}, type: {}", file.getPath(), typeToken.getType(), e);
+            throw new ApiException(String.format("gson from error, file path: %s, type: %s", file.getPath(), typeToken.getType()), e);
         }
     }
 
@@ -120,7 +120,7 @@ public class GsonUtil {
             TypeToken<List<V>> typeToken = (TypeToken<List<V>>) TypeToken.getParameterized(ArrayList.class, type);
             return gson.fromJson(reader, typeToken.getType());
         } catch (FileNotFoundException e) {
-            throw new ApiException("gson from error, file path: {}, type: {}", file.getPath(), type, e);
+            throw new ApiException(String.format("gson from error, file path: %s, type: %s", file.getPath(), type), e);
         }
     }
 
@@ -188,7 +188,7 @@ public class GsonUtil {
             reader.setLenient(true);
             return gson.fromJson(reader, type);
         } catch (FileNotFoundException e) {
-            throw new ApiException("gson lenient from error, file path: {}, type: {}", file.getPath(), type, e);
+            throw new ApiException(String.format("gson lenient from error, file path: %s, type: %s", file.getPath(), type), e);
         }
     }
 
@@ -202,7 +202,7 @@ public class GsonUtil {
             TypeToken<List<V>> typeToken = (TypeToken<List<V>>) TypeToken.getParameterized(ArrayList.class, type);
             return gson.fromJson(reader, typeToken.getType());
         } catch (FileNotFoundException e) {
-            throw new ApiException("gson lenient from error, file path: {}, type: {}", file.getPath(), type, e);
+            throw new ApiException(String.format("gson lenient from error, file path: %s, type: %s", file.getPath(), type), e);
         }
     }
 
@@ -273,11 +273,11 @@ public class GsonUtil {
      * 序列化为JSON文件
      */
     public static <V> void toFile(String path, List<V> list) {
-        try (JsonWriter jsonWriter = new JsonWriter(new FileWriter(new File(path), true));) {
+        try (JsonWriter jsonWriter = new JsonWriter(new FileWriter(path, true))) {
             gson.toJson(list, new TypeToken<List<V>>() {}.getType(), jsonWriter);
             jsonWriter.flush();
         } catch (Exception e) {
-            throw new ApiException("gson to file error, path: {}, list: {}", path, list, e);
+            throw new ApiException(String.format("gson to file error, path: %s, list: %s", path, list), e);
         }
     }
 
@@ -285,11 +285,11 @@ public class GsonUtil {
      * 序列化为JSON文件
      */
     public static <V> void toFile(String path, V v) {
-        try (JsonWriter jsonWriter = new JsonWriter(new FileWriter(new File(path), true));) {
+        try (JsonWriter jsonWriter = new JsonWriter(new FileWriter(path, true))) {
             gson.toJson(v, v.getClass(), jsonWriter);
             jsonWriter.flush();
         } catch (Exception e) {
-            throw new ApiException("gson to file error, path: {}, obj: {}", path, v, e);
+            throw new ApiException(String.format("gson to file error, path: %s, obj: %s", path, v), e);
         }
     }
 
@@ -329,7 +329,7 @@ public class GsonUtil {
         try {
             return jsonByKey.getAsInt();
         } catch (Exception e) {
-            throw new ApiException("gson get int error, json: {}, key: {}", json, key, e);
+            throw new ApiException(String.format("gson get int error, json: %s, key: %s", json, key), e);
         }
     }
 
@@ -348,7 +348,7 @@ public class GsonUtil {
         try {
             return jsonByKey.getAsLong();
         } catch (Exception e) {
-            throw new ApiException("gson get long error, json: {}, key: {}", json, key, e);
+            throw new ApiException(String.format("gson get long error, json: %s, key: %s", json, key), e);
         }
     }
 
@@ -367,7 +367,7 @@ public class GsonUtil {
         try {
             return jsonByKey.getAsDouble();
         } catch (Exception e) {
-            throw new ApiException("gson get double error, json: {}, key: {}", json, key, e);
+            throw new ApiException(String.format("gson get double error, json: %s, key: %s", json, key), e);
         }
     }
 
@@ -386,7 +386,7 @@ public class GsonUtil {
         try {
             return jsonByKey.getAsBigInteger();
         } catch (Exception e) {
-            throw new ApiException("gson get big integer error, json: {}, key: {}", json, key, e);
+            throw new ApiException(String.format("gson get big integer error, json: %s, key: %s", json, key), e);
         }
     }
 
@@ -405,7 +405,7 @@ public class GsonUtil {
         try {
             return jsonByKey.getAsBigDecimal();
         } catch (Exception e) {
-            throw new ApiException("gson get big decimal error, json: {}, key: {}", json, key, e);
+            throw new ApiException(String.format("gson get big decimal error, json: %s, key: %s", json, key), e);
         }
     }
 
@@ -437,7 +437,7 @@ public class GsonUtil {
                 }
             }
         } catch (Exception e) {
-            throw new ApiException("gson get boolean error, json: {}, key: {}", json, key, e);
+            throw new ApiException(String.format("gson get boolean error, json: %s, key: %s", json, key), e);
         }
     }
 
@@ -456,7 +456,7 @@ public class GsonUtil {
         try {
             return jsonByKey.getAsByte();
         } catch (Exception e) {
-            throw new ApiException("gson get byte error, json: {}, key: {}", json, key, e);
+            throw new ApiException(String.format("gson get byte error, json: %s, key: %s", json, key), e);
         }
     }
 
@@ -475,7 +475,7 @@ public class GsonUtil {
         try {
             return from(jsonByKey.getAsString(), type);
         } catch (Exception e) {
-            throw new ApiException("gson get list error, json: {}, key: {}, type: {}", json, key, type, e);
+            throw new ApiException(String.format("gson get list error, json: %s, key: %s, type: %s", json, key, type), e);
         }
     }
 
@@ -496,7 +496,7 @@ public class GsonUtil {
             TypeToken<List<V>> typeToken = (TypeToken<List<V>>) TypeToken.getParameterized(ArrayList.class, type);
             return from(jsonArray.toString(), typeToken);
         } catch (Exception e) {
-            throw new ApiException("gson get list error, json: {}, key: {}, type: {}", json, key, type, e);
+            throw new ApiException(String.format("gson get list error, json: %s, key: %s, type: %s", json, key, type), e);
         }
     }
 
@@ -509,7 +509,7 @@ public class GsonUtil {
             JsonObject jsonObj = element.getAsJsonObject();
             return jsonObj.get(key);
         } catch (JsonSyntaxException e) {
-            throw new ApiException("gson get object from json error, json: {}, key: {}", json, key, e);
+            throw new ApiException(String.format("gson get object from json error, json: %s, key: %s", json, key), e);
         }
     }
 
@@ -587,7 +587,7 @@ public class GsonUtil {
      * 2018/6/20 14:58
      */
     public static class NumberTypeAdapter<T> extends TypeAdapter<Number> {
-        private Class<T> c;
+        private final Class<T> c;
 
         public NumberTypeAdapter(Class<T> c) {
             this.c = c;

@@ -33,7 +33,7 @@ public class FastjsonUtil {
         try {
             return JSON.parseObject(inputStream, type);
         } catch (IOException e) {
-            throw new ApiException("fastjson from error, type: {}", type, e);
+            throw new ApiException(String.format("fastjson from error, type: %s", type), e);
         }
     }
 
@@ -44,7 +44,7 @@ public class FastjsonUtil {
         try {
             return JSON.parseObject(inputStream, typeReference.getType());
         } catch (IOException e) {
-            throw new ApiException("fastjson from error, type: {}", typeReference, e);
+            throw new ApiException(String.format("fastjson from error, type: %s", typeReference), e);
         }
     }
 
@@ -105,7 +105,7 @@ public class FastjsonUtil {
             }
             return jsonObject.getString(key);
         } catch (Exception e) {
-            throw new ApiException("fastjson get string error, json: {}, key: {}", json, key, e);
+            throw new ApiException(String.format("fastjson get string error, json: %s, key: %s", json, key), e);
         }
     }
 
@@ -124,7 +124,7 @@ public class FastjsonUtil {
             }
             return jsonObject.getInteger(key);
         } catch (Exception e) {
-            throw new ApiException("fastjson get int error, json: {}, key: {}", json, key, e);
+            throw new ApiException(String.format("fastjson get int error, json: %s, key: %s", json, key), e);
         }
     }
 
@@ -143,7 +143,7 @@ public class FastjsonUtil {
             }
             return jsonObject.getLong(key);
         } catch (Exception e) {
-            throw new ApiException("fastjson get long error, json: {}, key: {}", json, key, e);
+            throw new ApiException(String.format("fastjson get long error, json: %s, key: %s", json, key), e);
         }
     }
 
@@ -162,7 +162,7 @@ public class FastjsonUtil {
             }
             return jsonObject.getDouble(key);
         } catch (Exception e) {
-            throw new ApiException("fastjson get double error, json: {}, key: {}", json, key, e);
+            throw new ApiException(String.format("fastjson get double error, json: %s, key: %s", json, key), e);
         }
     }
 
@@ -181,7 +181,7 @@ public class FastjsonUtil {
             }
             return jsonObject.getBigInteger(key);
         } catch (Exception e) {
-            throw new ApiException("fastjson get big integer error, json: {}, key: {}", json, key, e);
+            throw new ApiException(String.format("fastjson get big integer error, json: %s, key: %s", json, key), e);
         }
     }
 
@@ -200,7 +200,7 @@ public class FastjsonUtil {
             }
             return jsonObject.getBigDecimal(key);
         } catch (Exception e) {
-            throw new ApiException("fastjson get big decimal error, json: {}, key: {}", json, key, e);
+            throw new ApiException(String.format("fastjson get big decimal error, json: %s, key: %s", json, key), e);
         }
     }
 
@@ -219,7 +219,7 @@ public class FastjsonUtil {
             }
             return jsonObject.getBooleanValue(key);
         } catch (Exception e) {
-            throw new ApiException("fastjson get boolean error, json: {}, key: {}", json, key, e);
+            throw new ApiException(String.format("fastjson get boolean error, json: %s, key: %s", json, key), e);
         }
     }
 
@@ -238,7 +238,7 @@ public class FastjsonUtil {
             }
             return jsonObject.getByteValue(key);
         } catch (Exception e) {
-            throw new ApiException("fastjson get bytes error, json: {}, key: {}", json, key, e);
+            throw new ApiException(String.format("fastjson get bytes error, json: %s, key: %s", json, key), e);
         }
     }
 
@@ -257,7 +257,7 @@ public class FastjsonUtil {
             }
             return JSON.parseObject(jsonObject.getString(key), type);
         } catch (Exception e) {
-            throw new ApiException("fastjson get list error, json: {}, key: {}, type: {}", json, key, type, e);
+            throw new ApiException(String.format("fastjson get list error, json: %s, key: %s, type: %s", json, key, type), e);
         }
     }
 
@@ -277,7 +277,7 @@ public class FastjsonUtil {
             JSONArray jsonArray = jsonObject.getJSONArray(key);
             return jsonArray.toJavaList(type);
         } catch (Exception e) {
-            throw new ApiException("fastjson get list error, json: {}, key: {}, type: {}", json, key, type, e);
+            throw new ApiException(String.format("fastjson get list error, json: %s, key: %s, type: %s", json, key, type), e);
         }
     }
 
@@ -296,7 +296,7 @@ public class FastjsonUtil {
             }
             return jsonObject.getJSONObject(key);
         } catch (Exception e) {
-            throw new ApiException("fastjson get list error, json: {}, key: {}", json, key, e);
+            throw new ApiException(String.format("fastjson get list error, json: %s, key: %s", json, key), e);
         }
     }
 

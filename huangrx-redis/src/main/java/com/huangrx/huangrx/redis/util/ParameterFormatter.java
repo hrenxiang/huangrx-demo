@@ -1,4 +1,4 @@
-package com.huangrx.json.exception;
+package com.huangrx.huangrx.redis.util;
 
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
@@ -83,7 +83,7 @@ public final class ParameterFormatter {
      * @param messagePattern the message pattern to be analyzed.
      * @return the number of unescaped placeholders.
      */
-    static int countArgumentPlaceholders2(final String messagePattern, final int[] indices) {
+    public static int countArgumentPlaceholders2(final String messagePattern, final int[] indices) {
         if (messagePattern == null) {
             return 0;
         }

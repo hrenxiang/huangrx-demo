@@ -119,123 +119,123 @@ public class JacksonUtil {
     /**
      * JSON反序列化
      */
-    public static <V> V from(URL url, Class<V> type) {
+    public static <V> V parseUrl(URL url, Class<V> type) {
         try {
             return mapper.readValue(url, type);
         } catch (IOException e) {
-            throw new ApiException("jackson from error, url: {}, type: {}", url.getPath(), type, e);
+            throw new ApiException(String.format("jackson parseUrl error, url: %s, type: %s", url.getPath(), type), e);
         }
     }
 
     /**
      * JSON反序列化
      */
-    public static <V> V from(URL url, TypeReference<V> type) {
+    public static <V> V parseUrl(URL url, TypeReference<V> type) {
         try {
             return mapper.readValue(url, type);
         } catch (IOException e) {
-            throw new ApiException("jackson from error, url: {}, type: {}", url.getPath(), type, e);
+            throw new ApiException(String.format("jackson parseUrl error, url: %s, type: %s", url.getPath(), type), e);
         }
     }
 
     /**
      * JSON反序列化（List）
      */
-    public static <V> List<V> fromList(URL url, Class<V> type) {
+    public static <V> List<V> parseUrlToList(URL url, Class<V> type) {
         try {
             CollectionType collectionType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, type);
             return mapper.readValue(url, collectionType);
         } catch (IOException e) {
-            throw new ApiException("jackson from error, url: {}, type: {}", url.getPath(), type, e);
+            throw new ApiException(String.format("jackson parseUrlToList error, url: %s, type: %s", url.getPath(), type), e);
         }
     }
 
     /**
      * JSON反序列化
      */
-    public static <V> V from(InputStream inputStream, Class<V> type) {
+    public static <V> V parseInputStream(InputStream inputStream, Class<V> type) {
         try {
             return mapper.readValue(inputStream, type);
         } catch (IOException e) {
-            throw new ApiException("jackson from error, type: {}", type, e);
+            throw new ApiException(String.format("jackson parseInputStream error, type: %s", type), e);
         }
     }
 
     /**
      * JSON反序列化
      */
-    public static <V> V from(InputStream inputStream, TypeReference<V> type) {
+    public static <V> V parseInputStream(InputStream inputStream, TypeReference<V> type) {
         try {
             return mapper.readValue(inputStream, type);
         } catch (IOException e) {
-            throw new ApiException("jackson from error, type: {}", type, e);
+            throw new ApiException(String.format("jackson parseInputStream error, type: %s", type), e);
         }
     }
 
     /**
      * JSON反序列化（List）
      */
-    public static <V> List<V> fromList(InputStream inputStream, Class<V> type) {
+    public static <V> List<V> parseInputStreamToList(InputStream inputStream, Class<V> type) {
         try {
             CollectionType collectionType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, type);
             return mapper.readValue(inputStream, collectionType);
         } catch (IOException e) {
-            throw new ApiException("jackson from error, type: {}", type, e);
+            throw new ApiException(String.format("jackson parseInputStreamToList error, type: %s", type), e);
         }
     }
 
     /**
      * JSON反序列化
      */
-    public static <V> V from(File file, Class<V> type) {
+    public static <V> V parseFile(File file, Class<V> type) {
         try {
             return mapper.readValue(file, type);
         } catch (IOException e) {
-            throw new ApiException("jackson from error, file path: {}, type: {}", file.getPath(), type, e);
+            throw new ApiException(String.format("jackson parseFile error, file path: %s, type: %s", file.getPath(), type), e.getCause());
         }
     }
 
     /**
      * JSON反序列化
      */
-    public static <V> V from(File file, TypeReference<V> type) {
+    public static <V> V parseFile(File file, TypeReference<V> type) {
         try {
             return mapper.readValue(file, type);
         } catch (IOException e) {
-            throw new ApiException("jackson from error, file path: {}, type: {}", file.getPath(), type, e);
+            throw new ApiException(String.format("jackson parseFile error, file path: %s, type: %s", file.getPath(), type), e);
         }
     }
 
     /**
      * JSON反序列化（List）
      */
-    public static <V> List<V> fromList(File file, Class<V> type) {
+    public static <V> List<V> parseFileToList(File file, Class<V> type) {
         try {
             CollectionType collectionType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, type);
             return mapper.readValue(file, collectionType);
         } catch (IOException e) {
-            throw new ApiException("jackson from error, file path: {}, type: {}", file.getPath(), type, e);
+            throw new ApiException(String.format("jackson parseFileToList error, file path: %s, type: %s", file.getPath(), type), e);
         }
     }
 
     /**
      * JSON反序列化
      */
-    public static <V> V from(String json, Class<V> type) {
-        return from(json, (Type) type);
+    public static <V> V parseString(String json, Class<V> type) {
+        return parseString(json, (Type) type);
     }
 
     /**
      * JSON反序列化
      */
-    public static <V> V from(String json, TypeReference<V> type) {
-        return from(json, type.getType());
+    public static <V> V parseString(String json, TypeReference<V> type) {
+        return parseString(json, type.getType());
     }
 
     /**
      * JSON反序列化
      */
-    public static <V> V from(String json, Type type) {
+    public static <V> V parseString(String json, Type type) {
         if (StringUtils.isEmpty(json)) {
             return null;
         }
@@ -243,14 +243,14 @@ public class JacksonUtil {
             JavaType javaType = mapper.getTypeFactory().constructType(type);
             return mapper.readValue(json, javaType);
         } catch (IOException e) {
-            throw new ApiException("jackson from error, json: {}, type: {}", json, type, e);
+            throw new ApiException(String.format("jackson parseString error, json: %s, type: %s", json, type), e);
         }
     }
 
     /**
      * JSON反序列化（List）
      */
-    public static <V> List<V> fromList(String json, Class<V> type) {
+    public static <V> List<V> parseStringToList(String json, Class<V> type) {
         if (StringUtils.isEmpty(json)) {
             return null;
         }
@@ -258,14 +258,14 @@ public class JacksonUtil {
             CollectionType collectionType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, type);
             return mapper.readValue(json, collectionType);
         } catch (IOException e) {
-            throw new ApiException("jackson from error, json: {}, type: {}", json, type, e);
+            throw new ApiException(String.format("jackson parseStringToList error, json: %s, type: %s", json, type), e);
         }
     }
 
     /**
      * JSON反序列化（Map）
      */
-    public static Map<String, Object> fromMap(String json) {
+    public static Map<String, Object> parseStringToMap(String json) {
         if (StringUtils.isEmpty(json)) {
             return null;
         }
@@ -273,51 +273,62 @@ public class JacksonUtil {
             MapType mapType = mapper.getTypeFactory().constructMapType(HashMap.class, String.class, Object.class);
             return mapper.readValue(json, mapType);
         } catch (IOException e) {
-            throw new ApiException("jackson from error, json: {}, type: {}", json, e);
+            throw new ApiException(String.format("jackson parseStringToMap error, json: %s, type: %s", json), e);
         }
     }
 
     /**
      * 序列化为JSON
      */
-    public static <V> String to(List<V> list) {
-        try {
-            return mapper.writeValueAsString(list);
-        } catch (JsonProcessingException e) {
-            throw new ApiException("jackson to error, data: {}", list, e);
-        }
-    }
-
-    /**
-     * 序列化为JSON
-     */
-    public static <V> String to(V v) {
+    public static <V> String toJson(V v) {
         try {
             return mapper.writeValueAsString(v);
         } catch (JsonProcessingException e) {
-            throw new ApiException("jackson to error, data: {}", v, e);
+            throw new ApiException(String.format("jackson toJson error, data: %s", v), e);
         }
     }
 
     /**
      * 序列化为JSON
      */
-    public static <V> void toFile(String path, List<V> list) {
-        try (Writer writer = new FileWriter(new File(path), true)) {
+    public static <V> String toJson(List<V> list) {
+        try {
+            return mapper.writeValueAsString(list);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(String.format("jackson toJson error, data: %s", list), e);
+        }
+    }
+
+    /**
+     * 序列化为JSON
+     */
+    public static <V> String toJson(Map<String, V> map) {
+        try {
+            return mapper.writeValueAsString(map);
+        } catch (JsonProcessingException e) {
+            throw new ApiException(String.format("jackson toJson error, data: %s", map), e);
+        }
+    }
+
+    /**
+     * 序列化为JSON
+     */
+    public static <V> void toJson(String path, List<V> list) {
+        try (Writer writer = new FileWriter(path, true)) {
             mapper.writer().writeValues(writer).writeAll(list);
         } catch (Exception e) {
-            throw new ApiException("jackson to file error, path: {}, list: {}", path, list, e);
+            throw new ApiException(String.format("jackson toJson file error, path: %s, list: %s", path, list), e);
         }
     }
 
     /**
      * 序列化为JSON
      */
-    public static <V> void toFile(String path, V v) {
-        try (Writer writer = new FileWriter(new File(path), true)) {
+    public static <V> void toJson(String path, V v) {
+        try (Writer writer = new FileWriter(path, true)) {
             mapper.writer().writeValues(writer).write(v);
         } catch (Exception e) {
-            throw new ApiException("jackson to file error, path: {}, data: {}", path, v, e);
+            throw new ApiException(String.format("jackson toJson file error, path: %s, data: %s", path, v), e);
         }
     }
 
@@ -336,7 +347,7 @@ public class JacksonUtil {
             }
             return getAsString(jsonNode);
         } catch (Exception e) {
-            throw new ApiException("jackson get string error, json: {}, key: {}", json, key, e);
+            throw new ApiException(String.format("jackson get string error, json: %s, key: %s", json, key), e);
         }
     }
 
@@ -359,7 +370,7 @@ public class JacksonUtil {
             }
             return jsonNode.isInt() ? jsonNode.intValue() : Integer.parseInt(getAsString(jsonNode));
         } catch (Exception e) {
-            throw new ApiException("jackson get int error, json: {}, key: {}", json, key, e);
+            throw new ApiException(String.format("jackson get int error, json: %s, key: %s", json, key), e);
         }
     }
 
@@ -378,7 +389,7 @@ public class JacksonUtil {
             }
             return jsonNode.isLong() ? jsonNode.longValue() : Long.parseLong(getAsString(jsonNode));
         } catch (Exception e) {
-            throw new ApiException("jackson get long error, json: {}, key: {}", json, key, e);
+            throw new ApiException(String.format("jackson get long error, json: %s, key: %s", json, key), e);
         }
     }
 
@@ -397,7 +408,7 @@ public class JacksonUtil {
             }
             return jsonNode.isDouble() ? jsonNode.doubleValue() : Double.parseDouble(getAsString(jsonNode));
         } catch (Exception e) {
-            throw new ApiException("jackson get double error, json: {}, key: {}", json, key, e);
+            throw new ApiException(String.format("jackson get double error, json: %s, key: %s", json, key), e);
         }
     }
 
@@ -416,7 +427,7 @@ public class JacksonUtil {
             }
             return jsonNode.isBigInteger() ? jsonNode.bigIntegerValue() : new BigInteger(getAsString(jsonNode));
         } catch (Exception e) {
-            throw new ApiException("jackson get big integer error, json: {}, key: {}", json, key, e);
+            throw new ApiException(String.format("jackson get big integer error, json: %s, key: %s", json, key), e);
         }
     }
 
@@ -435,7 +446,7 @@ public class JacksonUtil {
             }
             return jsonNode.isBigDecimal() ? jsonNode.decimalValue() : new BigDecimal(getAsString(jsonNode));
         } catch (Exception e) {
-            throw new ApiException("jackson get big decimal error, json: {}, key: {}", json, key, e);
+            throw new ApiException(String.format("jackson get big decimal error, json: %s, key: %s", json, key), e);
         }
     }
 
@@ -467,7 +478,7 @@ public class JacksonUtil {
                 }
             }
         } catch (Exception e) {
-            throw new ApiException("jackson get boolean error, json: {}, key: {}", json, key, e);
+            throw new ApiException(String.format("jackson get boolean error, json: %s, key: %s", json, key), e);
         }
     }
 
@@ -486,7 +497,7 @@ public class JacksonUtil {
             }
             return jsonNode.isBinary() ? jsonNode.binaryValue() : getAsString(jsonNode).getBytes();
         } catch (Exception e) {
-            throw new ApiException("jackson get byte error, json: {}, key: {}", json, key, e);
+            throw new ApiException(String.format("jackson get byte error, json: %s, key: %s", json, key), e);
         }
     }
 
@@ -504,9 +515,9 @@ public class JacksonUtil {
                 return null;
             }
             JavaType javaType = mapper.getTypeFactory().constructType(type);
-            return from(getAsString(jsonNode), javaType);
+            return parseString(getAsString(jsonNode), javaType);
         } catch (Exception e) {
-            throw new ApiException("jackson get list error, json: {}, key: {}, type: {}", json, key, type, e);
+            throw new ApiException(String.format("jackson get list error, json: %s, key: %s, type: %s", json, key, type), e);
         }
     }
 
@@ -525,9 +536,9 @@ public class JacksonUtil {
                 return null;
             }
             CollectionType collectionType = mapper.getTypeFactory().constructCollectionType(ArrayList.class, type);
-            return from(getAsString(jsonNode), collectionType);
+            return parseString(getAsString(jsonNode), collectionType);
         } catch (Exception e) {
-            throw new ApiException("jackson get list error, json: {}, key: {}, type: {}", json, key, type, e);
+            throw new ApiException(String.format("jackson get list error, json: %s, key: %s, type: %s", json, key, type), e);
         }
     }
 
@@ -543,7 +554,7 @@ public class JacksonUtil {
             }
             return node.get(key);
         } catch (IOException e) {
-            throw new ApiException("jackson get object from json error, json: {}, key: {}", json, key, e);
+            throw new ApiException(String.format("jackson get object from json error, json: %s, key: %s", json, key), e);
         }
     }
 
@@ -557,7 +568,7 @@ public class JacksonUtil {
             add(node, key, value);
             return node.toString();
         } catch (IOException e) {
-            throw new ApiException("jackson add error, json: {}, key: {}, value: {}", json, key, value, e);
+            throw new ApiException(String.format("jackson add error, json: %s, key: %s, value: %s", json, key, value), e);
         }
     }
 
@@ -586,7 +597,7 @@ public class JacksonUtil {
         } else if (value instanceof byte[]) {
             ((ObjectNode) jsonNode).put(key, (byte[]) value);
         } else {
-            ((ObjectNode) jsonNode).put(key, to(value));
+            ((ObjectNode) jsonNode).put(key, toJson(value));
         }
     }
 
@@ -600,7 +611,7 @@ public class JacksonUtil {
             ((ObjectNode) node).remove(key);
             return node.toString();
         } catch (IOException e) {
-            throw new ApiException("jackson remove error, json: {}, key: {}", json, key, e);
+            throw new ApiException(String.format("jackson remove error, json: %s, key: %s", json, key), e);
         }
     }
 
@@ -614,7 +625,7 @@ public class JacksonUtil {
             add(node, key, value);
             return node.toString();
         } catch (IOException e) {
-            throw new ApiException("jackson update error, json: {}, key: {}, value: {}", json, key, value, e);
+            throw new ApiException(String.format("jackson update error, json: %s, key: %s, value: %s", json, key, value), e);
         }
     }
 
@@ -627,7 +638,7 @@ public class JacksonUtil {
             JsonNode node = mapper.readTree(json);
             return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(node);
         } catch (IOException e) {
-            throw new ApiException("jackson format json error, json: {}", json, e);
+            throw new ApiException(String.format("jackson format json error, json: %s", json), e);
         }
     }
 

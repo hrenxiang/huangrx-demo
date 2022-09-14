@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.huangrx.mybatisplus.config.ApiContextRunner;
 import com.huangrx.mybatisplus.mapper.primary.UserMapper;
+import com.huangrx.mybatisplus.model.entity.ProductStoreParam;
 import com.huangrx.mybatisplus.model.entity.User;
 import com.huangrx.mybatisplus.service.UserService;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,10 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -72,10 +70,10 @@ public class UserController {
     /**
      * 根据多个ID 批量查询数据
      */
-    @RequestMapping(value = "/queryUserByIds", method = RequestMethod.GET)
-    public List<User> getUserById(String[] ids) {
-        List<String> list = Arrays.asList(ids);
-        return userMapper.selectBatchIds(list);
+    @RequestMapping(value = "/queryUserByIds", method = RequestMethod.POST)
+    public List<User> getUserById(@RequestBody ProductStoreParam productStoreParam) {
+        //List<String> list = Arrays.asList(ids);
+        return userMapper.selectBatchIds(productStoreParam.getStoreIds());
     }
 
     /**
@@ -281,6 +279,14 @@ public class UserController {
         );
 
         return userPage;
+    }
+
+
+    public static void main(String[] args) {
+        List<Integer> storeIds = new ArrayList<>();
+        for (Integer storeId : storeIds) {
+            System.out.println(storeId);
+        }
     }
 }
 

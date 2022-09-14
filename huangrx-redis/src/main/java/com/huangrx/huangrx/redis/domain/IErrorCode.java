@@ -1,4 +1,4 @@
-package com.huangrx.huangrx.redis.exception;
+package com.huangrx.huangrx.redis.domain;
 
 /**
  * 封装API的错误码
@@ -11,7 +11,7 @@ public interface IErrorCode {
      * 获取响应码
      * @return 响应码
      */
-    Integer getCode();
+    long getCode();
 
     /**
      * 获取错误信息

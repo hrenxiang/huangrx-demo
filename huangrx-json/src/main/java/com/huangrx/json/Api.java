@@ -134,7 +134,7 @@ public class Api {
                 .hobby(IMMUTABLE_MAP)
                 .build();
 
-        String format = JacksonUtil.format(JacksonUtil.to(huangrx));
+        String format = JacksonUtil.format(JacksonUtil.toJson(huangrx));
         System.out.println(format);
         // 结果：{"birthday":"09:23:37.836","createTime":1653441817829,"hobby":{"sport":"basketball","food":"watermelon"},"password":"123456","username":"huangrx"}
 
@@ -153,7 +153,7 @@ public class Api {
                 "  }\n" +
                 "}";
 
-        User user = JacksonUtil.from(json, User.class);
+        User user = JacksonUtil.parseString(json, User.class);
         System.out.println(user);
     }
 
