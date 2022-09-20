@@ -13,5 +13,5 @@ public interface ApiService {
      * 导出
      * @param response
      */
-    void export(HttpServletResponse response);
+    String export(HttpServletResponse response);
 }

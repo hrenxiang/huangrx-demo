@@ -25,7 +25,8 @@ public class ApiController {
     }
 
     @GetMapping("/export")
-    public void export(HttpServletResponse response) {
+    public String export(HttpServletResponse response) {
         apiService.export(response);
+        return "hello";
     }
 }

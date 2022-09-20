@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class ApiServiceImpl implements ApiService {
     
     @Override
-    public void export(HttpServletResponse response) {
+    public String export(HttpServletResponse response) {
         ArrayList<UserExcelTemplate> userExcelTemplates = new ArrayList<>();
         userExcelTemplates.add(generateUser());
         userExcelTemplates.add(generateUser());
@@ -28,6 +28,7 @@ public class ApiServiceImpl implements ApiService {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        return null;
     }
 
     private UserExcelTemplate generateUser() {

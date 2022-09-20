@@ -10,6 +10,7 @@ import com.huangrx.mybatisplus.mapper.primary.UserMapper;
 import com.huangrx.mybatisplus.model.entity.ProductStoreParam;
 import com.huangrx.mybatisplus.model.entity.User;
 import com.huangrx.mybatisplus.service.UserService;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -281,6 +282,11 @@ public class UserController {
         return userPage;
     }
 
+    /*
+     * @InterceptorIgnore(tenantLine = "true") // 跨租户查询，sql不会再加租户标识
+     * @Select("select es.merchant_id from fyc_pos.es_store es group by es.merchant_id")
+     * List<Integer> queryMerchantId();
+     */
 
     public static void main(String[] args) {
         List<Integer> storeIds = new ArrayList<>();

@@ -3,6 +3,7 @@ package com.huangrx.easypoi.model.template;
 import cn.afterturn.easypoi.excel.annotation.Excel;
 import cn.afterturn.easypoi.excel.annotation.ExcelCollection;
 import cn.afterturn.easypoi.excel.annotation.ExcelTarget;
+import com.huangrx.easypoi.utils.ExcelExportStatisticStyler;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,10 +25,15 @@ public class DeptExcelTemplate extends ExcelVerifyInfo implements Serializable {
 
     private static final long serialVersionUID = 6241459712917210470L;
     /**
-     * 部门代码
+     * 部门代码<br/>
+     * <br/>
+     * type 是代表文本类型，1文本，10数值 还有其他取值<br/>
+     * 有时候设置 type =10 不生效，我们自定义数据格式, 此处设置后，我们也需要代码中进行设置，<br/>
+     * ExportParams exportParams = new ExportParams(fileName, fileName, ExcelType.XSSF);<br/>
+     * exportParams.setStyle(ExcelExportStatisticStyler.class);<br/>
      */
     @NotBlank
-    @Excel(name = "部门代码", orderNum = "2", width = 20, needMerge = true)
+    @Excel(name = "部门代码", orderNum = "2", width = 20, needMerge = true, type = 10, dict = ExcelExportStatisticStyler.EXCEL_COVERT_MONEY)
     private String code;
     /**
      * 部门名称
