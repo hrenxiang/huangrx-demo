@@ -29,4 +29,10 @@ public class ApiController {
         apiService.export(response);
         return "hello";
     }
+
+    @GetMapping("/exportMoreSheet")
+    public String exportMoreSheet(HttpServletResponse response) {
+        apiService.exportMoreSheet(response);
+        return "hello";
+    }
 }

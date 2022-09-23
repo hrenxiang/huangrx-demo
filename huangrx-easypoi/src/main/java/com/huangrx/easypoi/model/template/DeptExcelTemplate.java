@@ -6,6 +6,7 @@ import cn.afterturn.easypoi.excel.annotation.ExcelTarget;
 import com.huangrx.easypoi.utils.ExcelExportStatisticStyler;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
@@ -20,6 +21,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(callSuper = true)
 @ExcelTarget("deptExcel")
 public class DeptExcelTemplate extends ExcelVerifyInfo implements Serializable {
 

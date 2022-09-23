@@ -1,14 +1,19 @@
 package com.huangrx.aop;
 
 import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
 
-@org.aspectj.lang.annotation.Aspect
+/**
+ * @author        hrenxiang
+ * @since         2022-09-22 09:26:32
+ */
+@Aspect
 @Component
-public class Aspect {
+public class AspectDemo {
     @Before(value = "execution(public int com.huangrx.aop.CalculatorPureImpl.*(..))")
     public void beforeLog(){
         System.out.println("[AOP前置通知] 方法开始了");

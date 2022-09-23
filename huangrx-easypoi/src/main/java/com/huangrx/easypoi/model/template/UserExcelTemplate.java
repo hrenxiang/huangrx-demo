@@ -35,27 +35,27 @@ public class UserExcelTemplate {
     /**
      * 性别
      */
-    @Excel(name = "性别", orderNum = "2", replace = {"男_M", "女_F", "未知_X"}, groupName = "基本信息")
+    @Excel(name = "性别", orderNum = "3", replace = {"男_M", "女_F", "未知_X"}, groupName = "基本信息")
     private String sex;
 
     /**
      * 手机
      */
-    @Excel(name = "手机", orderNum = "3", width = 20, groupName = "联系方式")
+    @Excel(name = "手机", orderNum = "4", width = 20, groupName = "联系方式")
     private String mobilePhone;
 
     /**
      * 邮箱
      */
-    @Excel(name = "邮箱", orderNum = "4", width = 20, groupName = "联系方式", isWrap = true)
+    @Excel(name = "邮箱", orderNum = "5", width = 20, groupName = "联系方式", isWrap = true)
     private String email;
 
     /**
      * 昵称
      */
-    @Excel(name = "昵称", orderNum = "5", groupName = "其他信息")
+    @Excel(name = "昵称", orderNum = "6", groupName = "其他信息")
     private String nickName;
 
-    @Excel(name = "生日", exportFormat = "yyyy-MM-dd", orderNum = "6", groupName = "其他信息")
+    @Excel(name = "生日", orderNum = "7", exportFormat = "yyyy-MM-dd", groupName = "其他信息")
     private Date birth;
 }

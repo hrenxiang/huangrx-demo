@@ -12,11 +12,12 @@ import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -106,7 +107,7 @@ public class ExcelUtils {
     }
 
     /**
-     * excel 导出
+     * excel 导出多sheet
      *
      * @param list     数据
      * @param fileName 文件名称
@@ -131,14 +132,14 @@ public class ExcelUtils {
     }
 
     /**
-     * 默认的 excel 导出
+     * 默认的 excel 导出多sheet
      *
      * @param list     数据
      * @param fileName 文件名称
      * @param response 响应
      */
     private static void defaultExport(List<Map<String, Object>> list, String fileName, HttpServletResponse response) throws IOException {
-        Workbook workbook = ExcelExportUtil.exportExcel(list, ExcelType.HSSF);
+        Workbook workbook = ExcelExportUtil.exportExcel(list, ExcelType.XSSF);
         downLoadExcel(fileName, response, workbook);
     }
 
@@ -165,33 +166,33 @@ public class ExcelUtils {
      * @param workbook excel数据
      */
     public static void downLoadExcel(String fileName, HttpServletResponse response, Workbook workbook) throws IOException {
+        /*try {
+         *    response.setCharacterEncoding("UTF-8");
+         *    response.setHeader("content-Type", "application/vnd.ms-excel");
+         *    response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName + "." + ExcelTypeEnum.XLS.getValue(), "UTF-8"));
+         *    response.setHeader("filename", URLEncoder.encode(fileName, "utf-8") + "." + ExcelTypeEnum.XLS.getValue());
+         *    workbook.write(response.getOutputStream());
+         *    response.getOutputStream().flush();
+         *} catch (Exception e) {
+         *    throw new IOException(e.getMessage());
+         *}
+         */
+
+
+        response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
+        response.setHeader("Content-Disposition", "attachment;filename=" + new String(fileName.getBytes("GB2312"), StandardCharsets.ISO_8859_1) + "." + ExcelTypeEnum.XLSX.getValue());
+        // 以下方式输出，可以避免打开excel时需要进行修复的操作
+        ServletOutputStream outStream = null;
         try {
-            response.setCharacterEncoding("UTF-8");
-            response.setHeader("content-Type", "application/vnd.ms-excel");
-            response.setHeader("Content-Disposition", "attachment;filename=" + URLEncoder.encode(fileName + "." + ExcelTypeEnum.XLS.getValue(), "UTF-8"));
-            response.setHeader("filename", URLEncoder.encode(fileName, "utf-8") + "." + ExcelTypeEnum.XLS.getValue());
-            workbook.write(response.getOutputStream());
-            response.getOutputStream().flush();
-        } catch (Exception e) {
-            throw new IOException(e.getMessage());
+            outStream = response.getOutputStream();
+            workbook.write(outStream);
+        } finally {
+            if (outStream != null) {
+                outStream.close();
+            }
+            workbook.close();
         }
 
-        /*
-         * // 上面不行就用下面这种方法
-         * response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-         * response.setHeader("Content-Disposition", "attachment;filename=" + new String(fileName.getBytes("GB2312"), StandardCharsets.ISO_8859_1) + "." + ExcelTypeEnum.XLSX.getValue());
-         * // 以下方式输出，可以避免打开excel时需要进行修复的操作
-         * ServletOutputStream outStream = null;
-         * try {
-         *     outStream = response.getOutputStream();
-         *     workbook.write(outStream);
-         * } finally {
-         *     if (outStream != null) {
-         *         outStream.close();
-         *     }
-         *     workbook.close();
-         * }
-         */
     }
 
     /**

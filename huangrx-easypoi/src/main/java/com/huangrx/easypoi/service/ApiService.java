@@ -14,4 +14,6 @@ public interface ApiService {
      * @param response
      */
     String export(HttpServletResponse response);
+
+    void exportMoreSheet(HttpServletResponse response);
 }

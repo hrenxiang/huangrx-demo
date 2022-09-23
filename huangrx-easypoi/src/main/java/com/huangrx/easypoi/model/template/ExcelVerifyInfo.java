@@ -5,13 +5,13 @@ import cn.afterturn.easypoi.handler.inter.IExcelModel;
 
 /**
  * 导入错误 信息 模版
- *
+ * <p>
  * 需要 excel 模版进行 继承
- *
+ * <p>
  * importParams.setNeedVerify(true); 开启
  *
- * @author    hrenxiang
- * @since    2022/4/28 6:28 PM
+ * @author hrenxiang
+ * @since 2022/4/28 6:28 PM
  */
 public class ExcelVerifyInfo implements IExcelModel, IExcelDataModel {
 
