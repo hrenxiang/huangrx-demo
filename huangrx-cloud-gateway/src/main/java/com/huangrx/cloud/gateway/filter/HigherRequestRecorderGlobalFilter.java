@@ -17,7 +17,7 @@ import java.net.URI;
  * @since 2022-10-14 17:33:08
  */
 @Component
-@ConditionalOnProperty(value = "gateway.log.enable", matchIfMissing = true)
+@ConditionalOnProperty(value = "gateway.log", name = "enabled", havingValue = "true")
 public class HigherRequestRecorderGlobalFilter implements GlobalFilter, Ordered {
 
     private static final String HTTP = "http";

@@ -20,7 +20,7 @@ import javax.annotation.PostConstruct;
  * @since 2022-10-14 17:54:33
  */
 @Component
-@ConditionalOnProperty(value = "gateway.log.enable", matchIfMissing = true)
+@ConditionalOnProperty(value = "gateway.log", name = "enabled", havingValue = "true")
 public class GatewayLoggerProfile {
     public static final String LOGGER_NAME = "requestRecorder";
 

@@ -20,7 +20,7 @@ import java.util.Objects;
  * @since 2022-10-14 17:33:38
  */
 @Component
-@ConditionalOnProperty(value = "gateway.log.enable", matchIfMissing = true)
+@ConditionalOnProperty(value = "gateway.log", name = "enabled", havingValue = "true")
 public class LowerRequestRecorderGlobalFilter implements GlobalFilter, Ordered {
     private final Logger logger = LoggerFactory.getLogger(LowerRequestRecorderGlobalFilter.class);
 
