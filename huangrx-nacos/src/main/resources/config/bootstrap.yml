@@ -11,6 +11,6 @@ spring:
       # 设置配置中心
       config:
         file-extension: yaml
-        server-addr: 10.58.128.176:8848
+        server-addr: 127.0.0.1:8848
         namespace: 3ebdc452-f811-415a-ac14-8dcb9c0fdf2b
         group: DEFAULT_GROUP

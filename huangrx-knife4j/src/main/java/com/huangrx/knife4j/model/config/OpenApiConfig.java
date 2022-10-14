@@ -61,8 +61,8 @@ public class OpenApiConfig {
     private List<RequestParameter> getGlobalRequestParameters() {
         List<RequestParameter> parameters = new ArrayList<>();
         parameters.add(new RequestParameterBuilder()
-                .name("AppKey")
-                .description("App Key")
+                .name("Authentication")
+                .description("访问令牌")
                 .required(false)
                 .in(ParameterType.QUERY)
                 .query(q -> q.model(m -> m.scalarModel(ScalarType.STRING)))
@@ -105,6 +105,7 @@ public class OpenApiConfig {
                 .globalRequestParameters(getGlobalRequestParameters())
                 .globalResponses(HttpMethod.GET, getGlobalResponse())
                 .globalResponses(HttpMethod.POST, getGlobalResponse())
-                .extensions(openApiExtensionResolver.buildExtensions("huangrx-test"));
+                .extensions(openApiExtensionResolver.buildExtensions("huangrx-test"))
+                .extensions(openApiExtensionResolver.buildSettingExtensions());
     }
 }

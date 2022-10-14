@@ -10,6 +10,10 @@ knife4j:
   setting:
     enableSwaggerModels: true
     swaggerModelName: 实体模块
+    # footer 关闭默认，打开自定义
+    enableFooter: false
+    enableFooterCustom: true
+    footerCustomContent: huangrx - wx
   enable: true
   # 开启生产环境屏蔽
   # production: true
@@ -18,4 +22,7 @@ knife4j:
       group: huangrx-test
       name: 自定义文档说明
       locations: classpath:markdown/*
+
+# Controller之间的排序主要有两种方式,排序的规则是倒序,但是排序的最小值必须大于0 建议优先级是：@ApiSupport>@ApiSort>@Api
+# 对于最高级别的值,可以从999开始 @ApiSupport注解自2.0.3版本引入
 

@@ -1,13 +1,10 @@
 package com.huangrx.knife4j.controller;
 
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
-import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import com.github.xiaoymin.knife4j.annotations.ApiSupport;
 import com.huangrx.knife4j.model.enums.ResponseStatus;
 import com.huangrx.knife4j.model.vo.AddressParam;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,11 +37,26 @@ public class AddressController {
      * @param addressParam param
      * @return address
      */
-    @ApiOperation("Add Address")
+    @ApiOperation("01 - Add Address")
+    @ApiOperationSupport(order = 1)
     @PostMapping("add")
     public ResponseEntity<String> add(@RequestBody AddressParam addressParam) {
         int i = 1/0;
         ResponseEntity.status(500);
+        return ResponseEntity.ok(ResponseStatus.HTTP_STATUS_403.getResponseCode());
+    }
+
+    @ApiOperation("02 - test Address")
+    @ApiOperationSupport(order = 2)
+    @PostMapping("test1")
+    public ResponseEntity<String> testSort1(@RequestBody AddressParam addressParam) {
+        return ResponseEntity.ok(ResponseStatus.HTTP_STATUS_403.getResponseCode());
+    }
+
+    @ApiOperation("03 - test Address")
+    @ApiOperationSupport(order = 3)
+    @PostMapping("test2")
+    public ResponseEntity<String> testSort2(@RequestBody AddressParam addressParam) {
         return ResponseEntity.ok(ResponseStatus.HTTP_STATUS_403.getResponseCode());
     }
 
