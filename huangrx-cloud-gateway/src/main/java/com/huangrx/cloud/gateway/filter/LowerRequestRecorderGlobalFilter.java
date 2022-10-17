@@ -1,5 +1,6 @@
 package com.huangrx.cloud.gateway.filter;
 
+import com.huangrx.cloud.gateway.util.ConstantUtil;
 import com.huangrx.cloud.gateway.util.GatewayLogUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,7 @@ import java.util.Objects;
  * @since 2022-10-14 17:33:38
  */
 @Component
-@ConditionalOnProperty(value = "gateway.log", name = "enabled", havingValue = "true")
+@ConditionalOnProperty(prefix = "gateway.log", name = "enabled", havingValue = "true")
 public class LowerRequestRecorderGlobalFilter implements GlobalFilter, Ordered {
     private final Logger logger = LoggerFactory.getLogger(LowerRequestRecorderGlobalFilter.class);
 
@@ -31,12 +32,12 @@ public class LowerRequestRecorderGlobalFilter implements GlobalFilter, Ordered {
 
         //只记录http的请求
         String scheme = originalRequestUrl.getScheme();
-        if ((!"http".equals(scheme) && !"https".equals(scheme))) {
+        if ((!ConstantUtil.HTTP.equals(scheme) && !ConstantUtil.HTTPS.equals(scheme))) {
             return chain.filter(exchange);
         }
 
         String upgrade = originalRequest.getHeaders().getUpgrade();
-        if ("websocket".equalsIgnoreCase(upgrade)) {
+        if (ConstantUtil.WEBSOCKET.equalsIgnoreCase(upgrade)) {
             return chain.filter(exchange);
         }
 

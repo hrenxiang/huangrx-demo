@@ -1,5 +1,6 @@
 package com.huangrx.cloud.gateway.filter;
 
+import com.huangrx.cloud.gateway.util.ConstantUtil;
 import com.huangrx.cloud.gateway.util.GatewayLogUtil;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
@@ -17,12 +18,8 @@ import java.net.URI;
  * @since 2022-10-14 17:33:08
  */
 @Component
-@ConditionalOnProperty(value = "gateway.log", name = "enabled", havingValue = "true")
+@ConditionalOnProperty(prefix = "gateway.log", name = "enabled", havingValue = "true")
 public class HigherRequestRecorderGlobalFilter implements GlobalFilter, Ordered {
-
-    private static final String HTTP = "http";
-    private static final String HTTPS = "https";
-    private static final String WEBSOCKET = "websocket";
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -31,12 +28,12 @@ public class HigherRequestRecorderGlobalFilter implements GlobalFilter, Ordered 
 
         //只记录http的请求
         String scheme = originalRequestUrl.getScheme();
-        if ((!HTTP.equals(scheme) && !HTTPS.equals(scheme))) {
+        if ((!ConstantUtil.HTTP.equals(scheme) && !ConstantUtil.HTTPS.equals(scheme))) {
             return chain.filter(exchange);
         }
 
         String upgrade = originalRequest.getHeaders().getUpgrade();
-        if (WEBSOCKET.equalsIgnoreCase(upgrade)) {
+        if (ConstantUtil.WEBSOCKET.equalsIgnoreCase(upgrade)) {
             return chain.filter(exchange);
         }
 
