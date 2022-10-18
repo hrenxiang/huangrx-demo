@@ -12,5 +12,6 @@ spring:
         namespace: 3ebdc452-f811-415a-ac14-8dcb9c0fdf2b
         file-extension: yaml
         group: DEFAULT_GROUP
-      discovery:
-        server-addr: 127.0.0.1:8848
+      # 注册中心拿到了 nacos上
+      # discovery:
+      #   server-addr: 127.0.0.1:8848

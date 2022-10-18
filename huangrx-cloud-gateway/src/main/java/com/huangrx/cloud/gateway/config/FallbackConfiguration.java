@@ -19,8 +19,8 @@ import org.springframework.web.server.ServerWebExchange;
 public class FallbackConfiguration {
 
     @RequestMapping(value = "/fallback", method = RequestMethod.GET)
-    public BaseResponse<Object> fallback(ServerWebExchange exchange, Throwable throwable) {
-        log.error("FallbackConfiguration，接口调用失败，URL={}, throwable={}", exchange.getRequest().getPath().pathWithinApplication().value(), throwable);
+    public BaseResponse<String> fallback(ServerWebExchange exchange) {
+        log.error("FallbackConfiguration，接口调用失败，URL={}", exchange.getRequest().getPath().pathWithinApplication().value());
         return BaseResponse.failed(ResultCode.SERVER_ERROR);
     }
 }

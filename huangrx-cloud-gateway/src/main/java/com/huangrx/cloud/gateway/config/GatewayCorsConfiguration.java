@@ -15,26 +15,26 @@ import org.springframework.web.cors.reactive.UrlBasedCorsConfigurationSource;
 @Configuration
 public class GatewayCorsConfiguration {
 //    @Bean
-//    public CorsWebFilter corsFilter() {
-//        //CorsConfiguration 相关配置说明
-//        // 是否允许携带cookies
-//        // private Boolean allowCredentials;
-//        // 允许的请求源
-//        // private List<String> allowedOrigins;
-//        // 允许的http方法
-//        // private List<String> allowedMethods;
-//        // 允许的请求头
-//        // private List<String> allowedHeaders;
+//    public CorsWebFilter corsWebFilter() {
+//
+//        // 初始化CORS配置对象
 //        CorsConfiguration config = new CorsConfiguration();
-//        // 如果设置为true，addAllowedOrigin就不能使用*了
-//        config.setAllowCredentials(true);
-//        config.addAllowedOrigin("*");
+//        // 允许的域,不要写*，否则cookie就无法使用了
+//        config.addAllowedOrigin("http://manager.gmall.com");
+//        config.addAllowedOrigin("http://www.gmall.com");
+//        config.addAllowedOrigin("http://static.gmall.com");
+//        config.addAllowedOrigin("http://item.gmall.com");
+//        // 允许的头信息
 //        config.addAllowedHeader("*");
+//        // 允许的请求方式
 //        config.addAllowedMethod("*");
+//        // 是否允许携带Cookie信息
+//        config.setAllowCredentials(true);
 //
-//        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-//        source.registerCorsConfiguration("/**", config);
+//        // 添加映射路径，我们拦截一切请求
+//        UrlBasedCorsConfigurationSource corsConfigurationSource = new UrlBasedCorsConfigurationSource();
+//        corsConfigurationSource.registerCorsConfiguration("/**", config);
 //
-//        return new CorsWebFilter(source);
+//        return new CorsWebFilter(corsConfigurationSource);
 //    }
 }
