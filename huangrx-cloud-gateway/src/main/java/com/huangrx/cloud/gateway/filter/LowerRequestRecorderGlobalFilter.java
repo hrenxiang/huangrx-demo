@@ -2,8 +2,10 @@ package com.huangrx.cloud.gateway.filter;
 
 import com.huangrx.cloud.gateway.util.ConstantUtil;
 import com.huangrx.cloud.gateway.util.GatewayLogUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.MDC;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -20,10 +22,10 @@ import java.util.Objects;
  * @author hrenxiang
  * @since 2022-10-14 17:33:38
  */
+@Slf4j
 @Component
 @ConditionalOnProperty(prefix = "gateway.log", name = "enabled", havingValue = "true")
 public class LowerRequestRecorderGlobalFilter implements GlobalFilter, Ordered {
-    private final Logger logger = LoggerFactory.getLogger(LowerRequestRecorderGlobalFilter.class);
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
@@ -51,7 +53,7 @@ public class LowerRequestRecorderGlobalFilter implements GlobalFilter, Ordered {
                 .request(request)
                 .response(response)
                 .build();
-
+        System.out.println("----------" + MDC.get("trace_id"));
         return GatewayLogUtil.recorderOriginalRequest(ex)
                 .then(Mono.defer(() -> chain.filter(ex)))
                 .then(Mono.defer(() -> finishLog(ex)));
@@ -59,7 +61,11 @@ public class LowerRequestRecorderGlobalFilter implements GlobalFilter, Ordered {
 
     private Mono<Void> finishLog(ServerWebExchange ex) {
         return Objects.requireNonNull(GatewayLogUtil.recorderResponse(ex))
-                .doOnSuccess(x -> logger.info(GatewayLogUtil.getLogData(ex) + "\n\n\n"));
+                .doOnSuccess(x -> {
+                    System.out.println("----------" + MDC.get("trace_id"));
+                    MDC.put("tract_id", ex.getRequest().getHeaders().get("tract_id").get(0));
+                    log.info(GatewayLogUtil.getLogData(ex) + "\n\n\n");
+                });
     }
 
     @Override

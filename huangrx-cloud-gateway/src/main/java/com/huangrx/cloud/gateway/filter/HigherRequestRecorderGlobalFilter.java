@@ -2,6 +2,7 @@ package com.huangrx.cloud.gateway.filter;
 
 import com.huangrx.cloud.gateway.util.ConstantUtil;
 import com.huangrx.cloud.gateway.util.GatewayLogUtil;
+import org.slf4j.MDC;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.cloud.gateway.filter.GatewayFilterChain;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
@@ -44,7 +45,7 @@ public class HigherRequestRecorderGlobalFilter implements GlobalFilter, Ordered 
         ServerWebExchange ex = exchange.mutate()
                 .request(request)
                 .build();
-
+        System.out.println("----------" + MDC.get("trace_id"));
         return GatewayLogUtil.recorderRouteRequest(ex)
                 .then(Mono.defer(() -> chain.filter(ex)));
     }

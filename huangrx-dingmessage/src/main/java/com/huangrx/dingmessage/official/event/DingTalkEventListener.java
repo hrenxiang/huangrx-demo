@@ -59,10 +59,12 @@ public class DingTalkEventListener {
             request.setAt(event.getAt());
         }
         try {
-            log.info("DingTalk robot send request url: {}, data: {}");
+            // 使用json转成string
+            log.info("DingTalk robot send request url: {}, data: {}", serverUrl, request);
             DingTalkClient client = new DefaultDingTalkClient(serverUrl);
             OapiRobotSendResponse response = client.execute(request);
-            log.info("DingTalk robot send response data: {}");
+            // 使用json转成string
+            log.info("DingTalk robot send response data: {}", response);
 
         } catch (ApiException e) {
             log.error(e.getMessage(), e);

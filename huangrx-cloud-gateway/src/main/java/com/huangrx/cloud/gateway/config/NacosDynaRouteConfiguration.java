@@ -2,6 +2,7 @@ package com.huangrx.cloud.gateway.config;
 
 import com.alibaba.cloud.nacos.NacosConfigManager;
 import com.huangrx.cloud.gateway.route.NacosRouteDefinitionRepository;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,6 +14,7 @@ import org.springframework.context.annotation.Configuration;
  * @since 2022-10-17 17:30:54
  */
 @Configuration
+@ConditionalOnProperty(prefix = "gateway.log", name = "enabled", havingValue = "true")
 public class NacosDynaRouteConfiguration {
     private final ApplicationEventPublisher publisher;
     private final NacosConfigManager nacosConfigManager;

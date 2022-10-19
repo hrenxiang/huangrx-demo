@@ -51,7 +51,7 @@ public class ApiController {
     @GetMapping("/get2")
     public String get2() {
         try {
-            Thread.sleep(5000);
+            Thread.sleep(1000);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
