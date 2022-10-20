@@ -33,6 +33,8 @@ public class MyThreadPool {
 
     public static void main(String[] args) {
         MyThreadPool myThreadPool = new MyThreadPool();
+        // Executor 管理多个异步任务的执行，而无需程序员显式地管理线程的生命周期。
+        // 这里的异步是指多个任务的执行互不干扰，不需要进行同步操作。
         Executor executor = myThreadPool.taskExecutor();
         executor.execute(new Runnable() {
             @Override
