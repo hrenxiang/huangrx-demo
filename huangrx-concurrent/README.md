@@ -300,15 +300,16 @@ public class Lock_8 {
 ```
 
 多线程的8个问题：
+[synchronized 锁的是当前对象本身]
 
-1. 标准访问，先打印短信还是邮件
-2. 停4秒在短信方法内，先打印短信还是邮件
-3. 普通的hello方法，是先打短信还是hello
-4. 现在有两部手机，先打印短信还是邮件
-5. 两个静态同步方法，1部手机，先打印短信还是邮件
-6. 两个静态同步方法，2部手机，先打印短信还是邮件
-7. 1个静态同步方法，1个普通同步方法，1部手机，先打印短信还是邮件
-8. 1个静态同步方法，1个普通同步方法，2部手机，先打印短信还是邮件
+1. 标准访问，先打印短信还是邮件 [sms email]
+2. 停4秒在短信方法内，先打印短信还是邮件 [sms email]
+3. 停4秒在短信方法内，新增普通的hello方法，是先打短信还是hello [hello 4秒后sms]
+4. 停4秒在短信方法内，现在有两部手机，先打印短信还是邮件 [email 四秒后sms]
+5. 两个静态同步方法，1部手机，先打印短信还是邮件 [sms email 静态同步方法锁的是当前class对象]
+6. 两个静态同步方法，2部手机，先打印短信还是邮件 [sms email 静态同步方法锁的是当前class对象]
+7. 1个静态同步方法，1个普通同步方法，1部手机，先打印短信还是邮件 [email sms 锁的class和当前实例对象是不一样的]
+8. 1个静态同步方法，1个普通同步方法，2部手机，先打印短信还是邮件 [email sms]
 
 
 
@@ -319,42 +320,140 @@ public class Lock_8 {
 > 现象、时机(内置锁this)、深入JVM看字节码(反编译看monitor指令)
 
 深入JVM看字节码，创建如下的代码：
-
 ```java
-public class SynchronizedDemo2 {
+package com.huangrx.concurrent.synchroniz;
 
-    Object object = new Object();
-    public void method1() {
-        synchronized (object) {
+/**
+ * 原理
+ *
+ * @author hrenxiang
+ * @since 2022-10-21 10:00
+ */
+public class SynchronizedPrinciple {
 
-        }
-        method2();
+  Object object = new Object();
+  public void method1() {
+    synchronized (object) {
+
     }
+    method2();
+  }
 
-    private static void method2() {
+  private static void method2() {
 
-    }
+  }
 }
+
 ```
+
 
 使用javac命令进行编译生成.class文件
-
 ```bash
->javac SynchronizedDemo2.java
+>javac SynchronizedPrinciple.java
 ```
 
-使用javap命令反编译查看.class文件的信息
 
+使用javap命令反编译查看.class文件的信息
 ```bash
 >javap -verbose SynchronizedDemo2.class
 ```
 
-![image-20220519174712078](../../12-笔记图集/synchronized-1.png)
+```shell
+public class com.huangrx.concurrent.synchroniz.SynchronizedPrinciple
+  minor version: 0
+  major version: 52
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
+   #1 = Methodref          #2.#20         // java/lang/Object."<init>":()V
+   #2 = Class              #21            // java/lang/Object
+   #3 = Fieldref           #5.#22         // com/huangrx/concurrent/synchroniz/SynchronizedPrinciple.object:Ljava/lang/Object;
+   #4 = Methodref          #5.#23         // com/huangrx/concurrent/synchroniz/SynchronizedPrinciple.method2:()V
+   #5 = Class              #24            // com/huangrx/concurrent/synchroniz/SynchronizedPrinciple
+   #6 = Utf8               object
+   #7 = Utf8               Ljava/lang/Object;
+   #8 = Utf8               <init>
+   #9 = Utf8               ()V
+  #10 = Utf8               Code
+  #11 = Utf8               LineNumberTable
+  #12 = Utf8               method1
+  #13 = Utf8               StackMapTable
+  #14 = Class              #24            // com/huangrx/concurrent/synchroniz/SynchronizedPrinciple
+  #15 = Class              #21            // java/lang/Object
+  #16 = Class              #25            // java/lang/Throwable
+  #17 = Utf8               method2
+  #18 = Utf8               SourceFile
+  #19 = Utf8               SynchronizedPrinciple.java
+  #20 = NameAndType        #8:#9          // "<init>":()V
+  #21 = Utf8               java/lang/Object
+  #22 = NameAndType        #6:#7          // object:Ljava/lang/Object;
+  #23 = NameAndType        #17:#9         // method2:()V
+  #24 = Utf8               com/huangrx/concurrent/synchroniz/SynchronizedPrinciple
+  #25 = Utf8               java/lang/Throwable
+{
+  java.lang.Object object;
+    descriptor: Ljava/lang/Object;
+    flags:
+
+  public com.huangrx.concurrent.synchroniz.SynchronizedPrinciple();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=3, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: aload_0
+         5: new           #2                  // class java/lang/Object
+         8: dup
+         9: invokespecial #1                  // Method java/lang/Object."<init>":()V
+        12: putfield      #3                  // Field object:Ljava/lang/Object;
+        15: return
+      LineNumberTable:
+        line 9: 0
+        line 11: 4
+
+  public void method1();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=2, locals=3, args_size=1
+         0: aload_0
+         1: getfield      #3                  // Field object:Ljava/lang/Object;
+         4: dup
+         5: astore_1
+         6: monitorenter
+         7: aload_1
+         8: monitorexit
+         9: goto          17
+        12: astore_2
+        13: aload_1
+        14: monitorexit
+        15: aload_2
+        16: athrow
+        17: invokestatic  #4                  // Method method2:()V
+        20: return
+      Exception table:
+         from    to  target type
+             7     9    12   any
+            12    15    12   any
+      LineNumberTable:
+        line 13: 0
+        line 15: 7
+        line 16: 17
+        line 17: 20
+      StackMapTable: number_of_entries = 2
+        frame_type = 255 /* full_frame */
+          offset_delta = 12
+          locals = [ class com/huangrx/concurrent/synchroniz/SynchronizedPrinciple, class java/lang/Object ]
+          stack = [ class java/lang/Throwable ]
+        frame_type = 250 /* chop */
+          offset_delta = 4
+}
+SourceFile: "SynchronizedPrinciple.java"
+```
 
 
 
-
-关注红色方框里的`monitorenter`和`monitorexit`即可。
+关注`monitorenter`和`monitorexit`即可。
 
 `Monitorenter`和`Monitorexit`指令，会让对象在执行，使其锁计数器加1或者减1。每一个对象在同一时间只与一个monitor(锁)相关联，而一个monitor在同一时间只能被一个线程获得，一个对象在尝试获得与这个对象相关联的Monitor锁的所有权的时候，monitorenter指令会发生如下3中情况之一：
 
@@ -368,7 +467,9 @@ public class SynchronizedDemo2 {
 
 ##### 2. 可重入原理：加锁次数计数器
 
-上面的demo中在执行完同步代码块之后紧接着再会去执行一个静态同步方法，而这个方法锁的对象依然就这个类对象，那么这个正在执行的线程还需要获取该锁吗? 答案是不必的，从上图中就可以看出来，执行静态同步方法的时候就只有一条monitorexit指令，并没有monitorenter获取锁的指令。这就是锁的重入性，即在同一锁程中，线程不需要再次获取同一把锁。
+上面的demo中在执行完同步代码块之后紧接着再会去执行一个静态同步方法，而这个方法锁的对象依然就这个类对象，那么这个正在执行的线程还需要获取该锁吗? 
+
+答案是不必的，从上图中就可以看出来，执行静态同步方法的时候就只有一条monitorexit指令，并没有monitorenter获取锁的指令。这就是锁的重入性，即在同一锁程中，线程不需要再次获取同一把锁。
 
 Synchronized先天具有重入性。每个对象拥有一个计数器，当线程获取该对象锁后，计数器就会加一，释放锁后就会将计数器减一。
 
@@ -376,8 +477,16 @@ Synchronized先天具有重入性。每个对象拥有一个计数器，当线�
 
 ##### 3. 保证可见性的原理：内存模型和happens-before规则
 
-Synchronized的happens-before规则，即监视器锁规则：对同一个监视器的解锁，happens-before于对该监视器的加锁。
+Synchronized的happens-before规则，即监视器锁规则：对同一个监视器的解锁，happens-before 于对该监视器的加锁。
 
+==**happens-before规则**：阐述操作之间的内存可见性，一个操作执行的结果需要对另一个操作可见，那么这两个操作之间必须存在 happens-before 关系。==
+
+1、程序顺序规则：一个线程中的每个操作，happens-before 于该线程中的任意后续操作。 也就是前面做的操作，后面是可见的。
+2、监视器锁规则：对一个监视器锁的解锁，happens- before 于随后对这个监视器锁的加锁。 即相同的锁，相同的代码块，前面加锁做的操作，对后加锁都是可见的。
+3、volatile 变量规则：对一个 volatile 域的写，happens- before 于任意后续对这个 volatile 域的读。 例如A线程对volatile x的值修改为2，B线程get x，能够感知到x的值变为了2。
+4、传递性：如果 A happens- before B，且 B happens- before C，那么 A happens- before C。
+5、线程 start() 规则：线程A中调用了线程B的start()方法，那么线程A调用线程B的start()方法之前的操作，对线程B都是可见的。 也就是该 start() 操作 Happens-Before 于线程 B 中的任意操作。
+6、线程 join() 规则：线程 A 调用子线程 B 的 join() 方法，当线程 B 完成后返回，线程A能够看到线程B中的操作。当然所谓的“看到”，指的是对共享变量的操作。
 
 
 ### JVM中锁的优化
