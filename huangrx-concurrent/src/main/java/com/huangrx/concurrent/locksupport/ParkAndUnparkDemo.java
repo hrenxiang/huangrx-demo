@@ -12,6 +12,7 @@ public class ParkAndUnparkDemo {
     public static void main(String[] args) {
         MyThread2 myThread = new MyThread2(Thread.currentThread());
         myThread.start();
+        System.out.println(123);
         // 获取许可
         LockSupport.park("ParkAndUnparkDemo");
         System.out.println("before park");
