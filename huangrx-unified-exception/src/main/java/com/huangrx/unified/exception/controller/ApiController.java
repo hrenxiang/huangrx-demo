@@ -2,14 +2,20 @@ package com.huangrx.unified.exception.controller;
 
 import com.huangrx.unified.exception.domain.BaseResponse;
 import com.huangrx.unified.exception.domain.ResultCode;
+import com.huangrx.unified.exception.exception.ApiException;
 import com.huangrx.unified.exception.exception.Asserts;
 import com.sun.istack.internal.NotNull;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * 测试 通用返回对象控制器
@@ -31,5 +37,12 @@ public class ApiController {
         Asserts.isTrue("1".equals("2"), "不相等");
         //throw new IndexOutOfBoundsException();
         return BaseResponse.failed(ResultCode.FAILED, "huangrx， 你帅我也不能让你过去！！！");
+    }
+
+
+    public static void main(String[] args) {
+        Map<String, Object> map = new HashMap<String, Object>();
+        System.out.println(Objects.nonNull(map.get("failedReason")));
+        System.out.println(StringUtils.isNotBlank(String.valueOf(map.get("failedReason"))));
     }
 }

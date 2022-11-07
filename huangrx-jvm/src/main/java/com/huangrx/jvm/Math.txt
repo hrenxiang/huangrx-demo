@@ -1,0 +1,122 @@
+Classfile /Users/hrenxiang/Documents/development/IdeaProjects/huangrx-demo/huangrx-jvm/src/main/java/com/huangrx/jvm/Math.class
+  Last modified 2022-11-7; size 669 bytes
+  MD5 checksum 9fc2ea9fb41712b2ee696309cba8e4b6
+  Compiled from "Math.java"
+public class com.huangrx.jvm.Math
+  minor version: 0
+  major version: 52
+  flags: ACC_PUBLIC, ACC_SUPER
+Constant pool:
+   #1 = Methodref          #10.#31        // java/lang/Object."<init>":()V
+   #2 = Fieldref           #4.#32         // com/huangrx/jvm/Math.m:I
+   #3 = Fieldref           #4.#33         // com/huangrx/jvm/Math.c:I
+   #4 = Class              #34            // com/huangrx/jvm/Math
+   #5 = Methodref          #4.#31         // com/huangrx/jvm/Math."<init>":()V
+   #6 = Methodref          #4.#35         // com/huangrx/jvm/Math.setC:(I)V
+   #7 = Methodref          #4.#36         // com/huangrx/jvm/Math.inc:()I
+   #8 = Fieldref           #37.#38        // java/lang/System.out:Ljava/io/PrintStream;
+   #9 = Methodref          #39.#40        // java/io/PrintStream.println:(I)V
+  #10 = Class              #41            // java/lang/Object
+  #11 = Utf8               ID
+  #12 = Utf8               J
+  #13 = Utf8               ConstantValue
+  #14 = Long               1l
+  #16 = Utf8               m
+  #17 = Utf8               I
+  #18 = Utf8               c
+  #19 = Utf8               <init>
+  #20 = Utf8               ()V
+  #21 = Utf8               Code
+  #22 = Utf8               LineNumberTable
+  #23 = Utf8               inc
+  #24 = Utf8               ()I
+  #25 = Utf8               main
+  #26 = Utf8               ([Ljava/lang/String;)V
+  #27 = Utf8               setC
+  #28 = Utf8               (I)V
+  #29 = Utf8               SourceFile
+  #30 = Utf8               Math.java
+  #31 = NameAndType        #19:#20        // "<init>":()V
+  #32 = NameAndType        #16:#17        // m:I
+  #33 = NameAndType        #18:#17        // c:I
+  #34 = Utf8               com/huangrx/jvm/Math
+  #35 = NameAndType        #27:#28        // setC:(I)V
+  #36 = NameAndType        #23:#24        // inc:()I
+  #37 = Class              #42            // java/lang/System
+  #38 = NameAndType        #43:#44        // out:Ljava/io/PrintStream;
+  #39 = Class              #45            // java/io/PrintStream
+  #40 = NameAndType        #46:#28        // println:(I)V
+  #41 = Utf8               java/lang/Object
+  #42 = Utf8               java/lang/System
+  #43 = Utf8               out
+  #44 = Utf8               Ljava/io/PrintStream;
+  #45 = Utf8               java/io/PrintStream
+  #46 = Utf8               println
+{
+  public com.huangrx.jvm.Math();
+    descriptor: ()V
+    flags: ACC_PUBLIC
+    Code:
+      stack=1, locals=1, args_size=1
+         0: aload_0
+         1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+         4: return
+      LineNumberTable:
+        line 7: 0
+
+  public int inc();
+    descriptor: ()I
+    flags: ACC_PUBLIC
+    Code:
+      stack=2, locals=1, args_size=1
+         0: getstatic     #2                  // Field m:I
+         3: aload_0
+         4: getfield      #3                  // Field c:I
+         7: iadd
+         8: ireturn
+      LineNumberTable:
+        line 15: 0
+
+  public static void main(java.java.lang.String[]);
+    descriptor: ([Ljava/lang/String;)V
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+      stack=2, locals=3, args_size=1
+         0: iconst_1
+         1: putstatic     #2                  // Field m:I
+         4: new           #4                  // class com/huangrx/jvm/Math
+         7: dup
+         8: invokespecial #5                  // Method "<init>":()V
+        11: astore_1
+        12: aload_1
+        13: iconst_1
+        14: invokevirtual #6                  // Method setC:(I)V
+        17: aload_1
+        18: invokevirtual #7                  // Method inc:()I
+        21: istore_2
+        22: getstatic     #8                  // Field java/lang/System.out:Ljava/io/PrintStream;
+        25: iload_2
+        26: invokevirtual #9                  // Method java/io/PrintStream.println:(I)V
+        29: return
+      LineNumberTable:
+        line 19: 0
+        line 20: 4
+        line 21: 12
+        line 22: 17
+        line 23: 22
+        line 24: 29
+
+  public void setC(int);
+    descriptor: (I)V
+    flags: ACC_PUBLIC
+    Code:
+      stack=2, locals=2, args_size=2
+         0: aload_0
+         1: iload_1
+         2: putfield      #3                  // Field c:I
+         5: return
+      LineNumberTable:
+        line 27: 0
+        line 28: 5
+}
+SourceFile: "Math.java"

@@ -19,7 +19,7 @@ public class RocketMqClient {
         this.mqConfig = mqConfig;
     }
 
-    @Bean
+    //@Bean(initMethod = "start", destroyMethod = "shutdown")
     public DefaultMQProducer buildProducerBean() {
         // 实例化消息生产者Producer
         DefaultMQProducer producer = new DefaultMQProducer(mqConfig.getGroup());
